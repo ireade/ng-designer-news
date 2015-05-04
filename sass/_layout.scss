@@ -25,10 +25,14 @@
 		background-color: #F3B215;
 		max-width: 100px;
 		float: right;
+		border: 0;
+		color: $black-grey;
 	}
 
 	button#register {
 		background-color: #1FC370;
+		border: 0;
+		color: $black-grey;
 	}
 
 	.password-help {
@@ -120,7 +124,7 @@ nav.sidebar-nav {
 	left: -140px;
 
 	li {
-		margin-bottom: 10px;
+		margin-bottom: 5px;
 
 	}
 
@@ -143,6 +147,6 @@ nav.sidebar-nav {
 .main {
 	position: relative;
 	background-color: $white-grey;
-	padding: 40px 20px;
+	padding: 60px 40px;
 	min-height: 100px;
 }
