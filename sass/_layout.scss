@@ -1,0 +1,148 @@
+/* -------------------------------
+
+		LAYOUT
+
+------------------------------- */
+
+.login-register-container {
+	position: relative;
+	height: 200px;
+	background-color: rgb(50, 50, 50);
+
+	display: none;
+
+	.sign-in,
+	.register {
+		display: inline-block;
+		width: 48%;
+		margin: 0 auto;
+		padding: 20px;
+		color: $light-grey;
+		vertical-align: top;
+	}
+
+	button#sign-in {
+		background-color: #F3B215;
+		max-width: 100px;
+		float: right;
+	}
+
+	button#register {
+		background-color: #1FC370;
+	}
+
+	.password-help {
+		line-height: 40px;
+	}
+}
+
+
+
+nav.header-nav {
+	background-color: $blue;
+	height: 60px;
+
+
+
+	.header-nav-container {
+		background-color: $light-blue;
+		height: 100%;
+
+		position: relative;
+	}
+
+	ul {
+		height: 100%;
+		width: auto;
+
+		li {
+			display: inline-block;
+			line-height: 60px;
+			padding: 0 20px;
+			cursor: pointer;
+		}
+	}
+
+	li.active {
+		font-weight: 700;
+		color: $white-grey;
+	}
+
+
+	.header-nav-left {
+		float: left;
+	}
+
+	.header-nav-right {
+		float: right;
+		overflow: visible;
+
+		li:hover {
+			background-color: $orange;
+		}
+
+		position: relative;
+
+	}
+
+	ul.account-info {
+		background-color: $orange;
+		position: absolute;
+		z-index: 2;
+		right: 0;
+		bottom: -80px;
+		height: 80px;
+		width: 200px;
+
+		display: none;
+
+		li {
+			display: block;
+			height: 40px;
+			font-size: 1.4rem;
+			border-top: 1px solid $light-grey;
+			line-height: 40px;
+
+		}
+	}
+
+
+	
+
+
+}
+
+nav.sidebar-nav {
+	position: absolute;
+	width: 130px;
+	color: $dark-grey;
+
+	left: -140px;
+
+	li {
+		margin-bottom: 10px;
+
+	}
+
+	li.new-story {
+		border-top: 1px solid $light-grey;
+		margin-top: 10px;
+		padding-top: 10px;
+	}
+
+	li.active {
+		font-weight: 700;
+		color: $black-grey;
+	}
+
+}
+
+
+
+
+.main {
+	position: relative;
+	background-color: $white-grey;
+	padding: 40px 20px;
+	min-height: 100px;
+}

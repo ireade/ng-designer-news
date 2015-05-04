@@ -1,0 +1,42 @@
+/* -------------------------------
+
+		TYPE AND VARIABLES
+
+------------------------------- */
+
+$blue: rgb(28, 82, 162);
+$light-blue: #2d72d9;
+$orange: #f3b215;
+
+$white-grey: rgb(250, 250, 250);
+$bg-grey: #eceef1;
+$light-grey: #c3c9d2;
+$dark-grey: #5f6979;
+$black-grey: rgb(50, 50, 50);
+
+html {
+	font-size: 62.5%;
+	background-color: $bg-grey;
+}
+
+body {
+	font-size: 1.4rem;
+	font-weight: 400;
+	font-family: 'Raleway';
+	line-height: 1.4;
+}
+
+nav.header-nav {
+	font-size: 1.6rem;
+}
+
+a {
+	color: inherit;
+	text-decoration: underline;
+}
+
+nav {
+	a {
+		text-decoration: none;
+	}
+}
