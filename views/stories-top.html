@@ -1,40 +1,17 @@
 <ul class="stories">
 
-	<li class="story-exerpt">
+	<li class="story-exerpt" ng-repeat="story in stories">
 		
-		<div class="story-category css">CSS</div>
+		<div class="story-category css">{{story.category}}</div>
 
-		<h2><a href="">Post title will go here</a></h2> <span class="story-link">(bitsofco.de)</span>
+		<h2><a href="">{{story.title}}</a></h2> <span class="story-link">({{story.url}})</span>
 
 		<div class="story-meta">
 			<span class="upvote"><a href="">Upvote</a> &#8226;</span> 
-			<span class="points">7 points and <a href="">5 comments</a></span> &#8226;
-			<span class="author">7 hours ago from <a href="">Ire Aderinokun</a>, Web Designer</span>
+			<span class="points">{{story.voteCount}} points and <a href="">{{story.commentCount}} comments</a></span> &#8226;
+			<span class="author">{{story.date}} from <a href="">Ire Aderinokun</a>, Web Designer</span>
 		</div>
 	</li>
 
-	<li class="story-exerpt">
-		<div class="story-category ama">AMA</div>
-
-		<h2><a href="">Post title will go here</a></h2> <span class="story-link">(bitsofco.de)</span>
-
-		<div class="story-meta">
-			<span class="upvote"><a href="">Upvote</a></span> &#8226;
-			<span class="points">7 points and <a href="">5 comments</a></span> &#8226;
-			<span class="author">7 hours ago from <a href="">Ire Aderinokun</a>, Web Designer</span>
-		</div>
-	</li>
-
-	<li class="story-exerpt">
-		<div class="story-category discussion">DISC</div>
-
-		<h2><a href="">Post title will go here</a></h2> <span class="story-link">(bitsofco.de)</span>
-
-		<div class="story-meta">
-			<span class="upvote"><a href="">Upvote</a></span> &#8226;
-			<span class="points">7 points and <a href="">5 comments</a></span> &#8226;
-			<span class="author">7 hours ago from <a href="">Ire Aderinokun</a>, Web Designer</span>
-		</div>
-	</li>
 
 </ul>
