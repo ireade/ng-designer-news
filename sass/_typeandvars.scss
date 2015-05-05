@@ -36,9 +36,12 @@ a {
 	text-decoration: underline;
 }
 
-button a {
-	text-decoration: none;
-}
+button,
+h2 {
+	a {
+		text-decoration: none;
+	}
+} 
 
 nav {
 	color: $black-grey;
@@ -54,6 +57,18 @@ h1 {
 	color: $black-grey;
 }
 
+h2 {
+	font-weight: 700;
+	color: $black-grey;
+	display: inline-block;
+	margin-bottom: 5px;
+}
+
+h3 {
+	color: $black-grey;
+	margin-bottom: 15px;
+}
+
 
 em {
 	font-weight: 700;
@@ -62,4 +77,9 @@ em {
 
 p {
 	margin-bottom: 15px;
+}
+
+
+.story-meta {
+	font-size: 1.2rem;
 }

@@ -1,0 +1,90 @@
+/* -------------------------------
+
+		VIEWS
+
+------------------------------- */
+
+
+/* Stories */
+
+.story-exerpt {
+	border-top: 1px solid $light-grey;
+	padding: 20px 0;
+
+	position: relative;
+}
+
+.story-category {
+	width: 50px;
+	height: 50px;
+
+	border-radius: 50%;
+	position: absolute;
+	top: 50%;
+	margin-top: -25px;
+	left: -65px;
+
+	text-align: center;
+	padding: 15px 0;
+	font-weight: 700;
+	color: $white-grey;
+}
+
+.story-category.css {
+	background-color: $light-blue;
+}
+.story-category.ama {
+	background-color: red;
+}
+
+.story-category.discussion {
+	background-color: $light-grey;
+}
+
+.story-link {
+	color: #9099a7;
+}
+
+
+
+/* Single Story */
+
+.single-story {
+
+	.story-meta {
+		margin-bottom: 20px;
+		font-size: 1.4rem;
+	}
+
+	form {
+		margin: 40px 0;
+	}
+
+
+	.single-comment {
+		border-bottom: 1px solid $light-grey;
+		padding: 20px 0;
+	}
+}
+
+
+/* Profile */
+
+.account-profile {
+
+	.recent-posts {
+		margin: 40px 0;
+		padding: 20px 0;
+		border-top: 1px solid $light-grey;
+	}
+
+	ul {
+		padding: 20px 0;
+	}
+
+	li {
+		margin-bottom: 10px;
+	}
+}
+
+
