@@ -30,10 +30,11 @@ app.config(function($routeProvider) {
 			templateUrl: 'views/reset-password.html'
 		})
 		.when('/submit', {
-			controller: 'StoriesCtrl',
+			controller: 'NewStoryCtrl',
 			templateUrl: 'views/submit.html'
 		})
-		.when('/stories/story', {
+		.when('/stories/:storyId', {
+			controller: 'StoryCtrl',
 			templateUrl: 'views/story.html'
 		})
 		.otherwise({

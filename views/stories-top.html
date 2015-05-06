@@ -1,4 +1,7 @@
-<button class="alertMessage.type">{{alertMessage.message}}</button>
+<div ng-if="alertMessage" class="alert-message {{alertMessage.type}}">
+	<span class="message">{{alertMessage.message}}</span>
+	<span class="cancel" ng-click="cancelAlert">(Cancel)</span>
+</div>
 
 <ul class="stories">
 

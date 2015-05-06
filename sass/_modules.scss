@@ -20,3 +20,45 @@ button.danger {
 	margin: 20px 0;
 	text-align: center;
 }
+
+.alert-message {
+	min-height: 40px;
+	width: 100%;
+	padding: 8px;
+	color: $white-grey;
+
+	font-weight: 700;
+
+	-webkit-appearance: none;
+	-moz-appearance: none;
+
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	border: 0;
+
+	cursor: default;
+	position: relative;
+	margin-bottom: 20px;
+
+	background-color: $light-grey;
+
+
+	.message {
+		padding-right: 70px;
+		display: block;
+	}
+
+	.cancel {
+		position: absolute;
+		right: 8px;
+		top: 8px;
+		cursor: pointer;
+		text-decoration: underline;
+	}
+}
+
+.alert-message.warning {
+	background-color: $orange;
+
+}

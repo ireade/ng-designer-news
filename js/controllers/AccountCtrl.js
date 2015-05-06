@@ -30,6 +30,8 @@ app.controller('AccountCtrl', function(FIREBASE_URL, $scope, $rootScope, Authent
 
 	$scope.signInUser = function(user) {
 		Authentication.signInUser(user);
+
+		$location.path('/');
 	};
 
 	$scope.logoutUser = function() {
@@ -49,6 +51,8 @@ app.controller('AccountCtrl', function(FIREBASE_URL, $scope, $rootScope, Authent
 
 	if ($rootScope.currentUserUid) {
 
+		console.log("there is a user")
+
 		users.$loaded().then(function(){
 	        angular.forEach(users, function(user) {
 	        	if (user.id == $rootScope.currentUserUid) {
@@ -58,6 +62,8 @@ app.controller('AccountCtrl', function(FIREBASE_URL, $scope, $rootScope, Authent
 	    });
 
 
+	} else {
+		console.log("no user");
 	}
 
 
