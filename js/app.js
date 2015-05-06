@@ -30,6 +30,7 @@ app.config(function($routeProvider) {
 			templateUrl: 'views/reset-password.html'
 		})
 		.when('/submit', {
+			controller: 'StoriesCtrl',
 			templateUrl: 'views/submit.html'
 		})
 		.when('/stories/story', {
@@ -38,4 +39,11 @@ app.config(function($routeProvider) {
 		.otherwise({
 			redirectTo: '/'
 		});
-})
+});
+
+
+app.filter('fromNow', function() {
+  return function(date) {
+    return moment(date).fromNow();
+  }
+});

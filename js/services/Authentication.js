@@ -54,8 +54,6 @@ app.factory('Authentication', function(FIREBASE_URL, $firebaseAuth, $rootScope) 
 		checkAuth: function() {
 			auth.$onAuth(function(authUser) {
 				if (authUser) {
-					console.log(authUser);
-
 					$rootScope.currentUserUid = authUser.uid;
 
 				} else {

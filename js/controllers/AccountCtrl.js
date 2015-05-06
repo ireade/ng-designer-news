@@ -1,4 +1,4 @@
-app.controller('AccountCtrl', function(FIREBASE_URL, $scope, $rootScope, Authentication, $firebaseArray, $firebaseObject) {
+app.controller('AccountCtrl', function(FIREBASE_URL, $scope, $rootScope, Authentication, $firebaseArray, $firebaseObject, $location) {
 
 	var ref = new Firebase(FIREBASE_URL + '/users');
 	var users = $firebaseArray(ref);
@@ -14,6 +14,15 @@ app.controller('AccountCtrl', function(FIREBASE_URL, $scope, $rootScope, Authent
 				last_name: user.last_name,
 				title: user.title,
 				email: user.email,
+			}).then(function() {
+
+				user.first_name = '';
+				user.last_name = '';
+				user.title = '';
+				user.email = '';
+
+				$location.path('/');
+
 			});
 
 		});
@@ -34,21 +43,24 @@ app.controller('AccountCtrl', function(FIREBASE_URL, $scope, $rootScope, Authent
 	};
 
 
-	//Authentication.checkAuth();
+
+	// Get Current User
+	Authentication.checkAuth();
+
+	if ($rootScope.currentUserUid) {
+
+		users.$loaded().then(function(){
+	        angular.forEach(users, function(user) {
+	        	if (user.id == $rootScope.currentUserUid) {
+	        		$rootScope.currentUser = user;
+	        	}
+	        })
+	    });
+
+
+	}
 
 
 
-	///
-
-
-	//$rootScope.currentUserUid;
-
-	var usersObj = $firebaseObject(ref);
-
-	angular.forEach(usersObj, function(i, a) {
-		console.log(i);
-	})
-
-	console.log(users);
 
 })
