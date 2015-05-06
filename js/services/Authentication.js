@@ -51,13 +51,19 @@ app.factory('Authentication', function(FIREBASE_URL, $firebaseAuth, $rootScope) 
 			});
 
 		},
-		checkAuth: function() {
+		checkAuth: function(callback) {
 			auth.$onAuth(function(authUser) {
+
 				if (authUser) {
+
 					$rootScope.currentUserUid = authUser.uid;
+					callback(authUser.uid)
+					//console.log('auth - there is a logged in user');
 
 				} else {
-					console.log('no logged in user');
+					//console.log('auth - no logged in user');
+
+					callback('nouser')
 				}
 			})
 		}

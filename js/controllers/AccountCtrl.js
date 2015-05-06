@@ -9,17 +9,17 @@ app.controller('AccountCtrl', function(FIREBASE_URL, $scope, $rootScope, Authent
 		Authentication.registerUser(user, function(uid) {
 
 			users.$add({
-				id: uid,
+				uid: uid,
 				first_name: user.first_name,
 				last_name: user.last_name,
 				title: user.title,
 				email: user.email,
 			}).then(function() {
 
-				user.first_name = '';
-				user.last_name = '';
-				user.title = '';
-				user.email = '';
+				$scope.user.first_name = '';
+				$scope.user.last_name = '';
+				$scope.user.title = '';
+				$scope.user.email = '';
 
 				$location.path('/');
 
@@ -30,6 +30,9 @@ app.controller('AccountCtrl', function(FIREBASE_URL, $scope, $rootScope, Authent
 
 	$scope.signInUser = function(user) {
 		Authentication.signInUser(user);
+
+		$scope.user.email = '';
+		$scope.user.password = '';
 
 		$location.path('/');
 	};
@@ -45,26 +48,27 @@ app.controller('AccountCtrl', function(FIREBASE_URL, $scope, $rootScope, Authent
 	};
 
 
-
 	// Get Current User
-	Authentication.checkAuth();
+	Authentication.checkAuth(function(currentUserUid) {
 
-	if ($rootScope.currentUserUid) {
+		if (currentUserUid != 'nouser') {
 
-		console.log("there is a user")
+			users.$loaded().then(function(){
+		        angular.forEach(users, function(user) {
+		        	if (user.uid == $rootScope.currentUserUid) {
+		        		$rootScope.currentUser = user;
+		        	}
+		        })
+		    });
+		}
 
-		users.$loaded().then(function(){
-	        angular.forEach(users, function(user) {
-	        	if (user.id == $rootScope.currentUserUid) {
-	        		$rootScope.currentUser = user;
-	        	}
-	        })
-	    });
+	});
 
 
-	} else {
-		console.log("no user");
-	}
+
+	
+
+
 
 
 

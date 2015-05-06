@@ -34,18 +34,31 @@
 	background-color: $light-blue;
 }
 .story-category.AMA {
-	background-color: red;
+	background-color: #DB392C;
 }
 .story-category.Ask {
-	background-color: green;
+	background-color: #1AA85F;
+}
+.story-category.Show {
+	background-color: #D9392B;
+}
+.story-category.Site {
+	background-color: #F3B114;
+}
+.story-category.Talk {
+	background-color: #39B86F;
+}
+.story-category.Apple {
+	background-color: #C3C9D2;
 }
 
-.story-category.discussion {
-	background-color: $light-grey;
-}
 
 .story-link {
 	color: #9099a7;
+}
+
+span.upvote {
+	cursor: pointer;
 }
 
 
@@ -53,6 +66,11 @@
 /* Single Story */
 
 .single-story {
+
+
+	h1 .story-link {
+		font-weight: 400;
+	}
 
 	.story-meta {
 		margin-bottom: 20px;

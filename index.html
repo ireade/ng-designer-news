@@ -3,19 +3,18 @@
 <head>
 	<meta charset="utf-8">
 	<title>ng-DesignerNews</title>
-	
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="">
-	<meta name="keywords" content="">
-	
 	<link rel="stylesheet" href="css/main.css">
 </head>
 <body ng-app="ng-designer-news">
 
+
+	<div ng-controller="AccountCtrl">
+
 	<div class="login-register-container">
 		<div class="container">
 
-			<div class="sign-in" ng-controller="AccountCtrl">
+			<div class="sign-in">
 
 				<form ng-submit="signInUser(user)">
 					<input type="email" ng-model="user.email" placeholder="Email address">
@@ -48,12 +47,14 @@
 			</ul>
 
 			<ul class="account-info">
-				<li><a ng-href="#/profile">Profile</a></li>
-				<li ng-controller="AccountCtrl"><a href="#" ng-click="logoutUser()">Logout</a></li>
+				<li><a ng-href="#/u/{{currentUser.$id}}">Profile</a></li>
+				<li><a ng-click="logoutUser()">Logout</a></li>
 			</ul>
 
 		</div>
 	</nav>
+
+	</div>
 
 
 	<div class="container main">
@@ -62,7 +63,7 @@
 				<li class="active"><a ng-href="#/">Top stories</a></li>
 				<li><a ng-href="#/recent">Recent stories</a></li>
 				<li><a ng-href="#/discussions">Discussions</a></li>
-				<li class="new-story"><a ng-href="#/submit">New Story</a></li>
+				<li class="new-story" ng-show="currentUser"><a ng-href="#/submit">New Story</a></li>
 			</ul>
 		</nav>
 		
@@ -88,6 +89,7 @@
     <script src="js/services/Authentication.js"></script>
 
     <script src="js/controllers/AccountCtrl.js"></script>
+    <script src="js/controllers/ProfileCtrl.js"></script>
     <script src="js/controllers/NewStoryCtrl.js"></script>
     <script src="js/controllers/StoriesCtrl.js"></script>
     <script src="js/controllers/StoryCtrl.js"></script>

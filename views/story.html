@@ -1,14 +1,18 @@
 <div class="single-story">
 
-<h1>Post title goes here <span class="story-link">(bitsofco.de)</span></h1>
+<h1 ng-if="story.url"><a ng-href="{{story.url}}" target="_blank">{{story.title}} <span class="story-link">({{story.url}})</span></a></h1>
+
+<h1 ng-if="!story.url">{{story.title}} <span class="story-link">(self.ng-designer-news)</span>
+</h1>
+
 
 <div class="story-meta">
-	<span class="upvote"><a href="">Upvote</a> &#8226;</span> 
-	<span class="points">7 points and <a href="">5 comments</a></span> &#8226;
-	<span class="author">7 hours ago from <a href="">Ire Aderinokun</a>, Web Designer</span>
+	<span class="upvote" ng-show="currentUser.uid != story.user.uid" ng-if="!hasVoted"><a ng-click="upvote(story.$id)">Upvote</a> &#8226;</span> 
+	<span class="points">{{story.voteCount}} points and {{story.commentCount}} comments</span> &#8226;
+	<span class="author">{{story.date | fromNow}} from <a ng-href="#/u/{{story.user.id}}">{{story.user.first_name}} {{story.user.last_name}}</a>, {{story.user.title}}</span>
 </div>
 
-<p>Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+<p ng-if="story.description">{{story.description}}</p>
 
 
 

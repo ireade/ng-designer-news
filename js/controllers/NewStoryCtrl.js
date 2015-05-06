@@ -7,6 +7,10 @@ app.controller('NewStoryCtrl', function(FIREBASE_URL, $scope, $rootScope, $locat
 	$scope.stories = stories;
 
 
+	var userRef = new Firebase(FIREBASE_URL + '/users/' + $rootScope.currentUser.$id + '/posts');
+	var thisUser = $firebaseArray(userRef);
+
+
 	// Alert Message
 	$scope.alertMessage = false;
 	var cancelAlert = function() {
@@ -15,9 +19,10 @@ app.controller('NewStoryCtrl', function(FIREBASE_URL, $scope, $rootScope, $locat
 
 
 
+
+
 	$scope.addStory = function(story) {
 
-		console.log("hello");
 
 		if (story.url && story.description) {
 			console.log("you cannot do both");
@@ -38,19 +43,31 @@ app.controller('NewStoryCtrl', function(FIREBASE_URL, $scope, $rootScope, $locat
 						first_name: $rootScope.currentUser.first_name,
 						last_name: $rootScope.currentUser.last_name,
 						title: $rootScope.currentUser.title,
-						id: $rootScope.currentUser.id
+						uid: $rootScope.currentUser.uid,
+						id: $rootScope.currentUser.$id
 					},
 					commentCount: 0,
 					voteCount: 0
 				}).then(function() {
 
-					story.title = '';
-					story.description = '';
-					story.url = '';
+					thisUser.$add({
+						title: story.title,
+						date: Firebase.ServerValue.TIMESTAMP
 
-					$location.path('/');
+					}).then(function() {
+
+						story.title = '';
+						story.description = '';
+						story.url = '';
+
+						$location.path('/');
+
+					})
 
 				});
+
+
+
 
 			} else if (story.description) {
 
@@ -64,17 +81,26 @@ app.controller('NewStoryCtrl', function(FIREBASE_URL, $scope, $rootScope, $locat
 						first_name: $rootScope.currentUser.first_name,
 						last_name: $rootScope.currentUser.last_name,
 						title: $rootScope.currentUser.title,
-						id: $rootScope.currentUser.id
+						uid: $rootScope.currentUser.uid,
+						id: $rootScope.currentUser.$id
 					},
 					commentCount: 0,
 					voteCount: 0
 				}).then(function() {
 
-					story.title = '';
-					story.description = '';
-					story.url = '';
+					thisUser.$add({
+						title: story.title,
+						date: Firebase.ServerValue.TIMESTAMP
 
-					$location.path('/');
+					}).then(function() {
+
+						story.title = '';
+						story.description = '';
+						story.url = '';
+
+						$location.path('/');
+
+					})
 
 				});
 
@@ -95,8 +121,39 @@ app.controller('NewStoryCtrl', function(FIREBASE_URL, $scope, $rootScope, $locat
 
 	function getCategory(title) {
 
-		return null;
+		if (title.indexOf('CSS') > -1 | title.indexOf('css') > -1 ) {
+			return 'CSS';
+		} 
 
+		else if (title.indexOf('AMA:') > -1 ) {
+			return 'AMA';
+		}
+
+		else if (title.indexOf('Ask DN:') > -1 ) {
+			return 'Ask';
+		}
+
+		else if (title.indexOf('Show DN:') > -1 ) {
+			return 'Show';
+		}
+
+		else if (title.indexOf('Site Design:') > -1) {
+			return 'Site';
+		}
+
+		else if (title.indexOf('Talk:') > -1 ) {
+			return 'Talk';
+		}
+
+		else if (title.indexOf('Apple') > -1 | title.indexOf('apple') > -1 ) {
+			return 'Apple';
+		}
+
+		else {
+			return null;
+		}
+
+	
 	}
 
 })
