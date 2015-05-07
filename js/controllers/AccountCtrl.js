@@ -39,6 +39,7 @@ app.controller('AccountCtrl', function(FIREBASE_URL, $scope, $rootScope, Authent
 
 	$scope.logoutUser = function() {
 		Authentication.logoutUser();
+		$location.path('/');
 		return false;
 	};
 

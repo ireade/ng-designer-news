@@ -1,15 +1,9 @@
-app.controller('NewStoryCtrl', function(FIREBASE_URL, $scope, $rootScope, $location, $firebaseArray) {
+app.controller('NewStoryCtrl', function(FIREBASE_URL, $scope, $rootScope, $location, $firebaseArray, Authentication) {
 
 	var ref = new Firebase(FIREBASE_URL + '/stories');
 	var stories = $firebaseArray(ref);
 
 	$scope.stories = stories;
-
-
-
-	var userRef = new Firebase(FIREBASE_URL + '/users/' + $rootScope.currentUser.$id + '/posts');
-	var thisUser = $firebaseArray(userRef);
-
 
 	// Alert Message
 	$scope.alertMessage = false;
@@ -18,9 +12,14 @@ app.controller('NewStoryCtrl', function(FIREBASE_URL, $scope, $rootScope, $locat
 	}
 
 
-	console.log($rootScope.currentUser);
+	var userRef;
+	var thisUser;
 
-
+	Authentication.checkAuth(function() {
+		userRef = new Firebase(FIREBASE_URL + '/users/' + $rootScope.currentUser.$id + '/posts');
+		thisUser = $firebaseArray(userRef);
+	})
+	
 
 
 	$scope.addStory = function(story) {
@@ -73,8 +72,6 @@ app.controller('NewStoryCtrl', function(FIREBASE_URL, $scope, $rootScope, $locat
 				});
 
 
-
-
 			} else if (story.description) {
 
 				stories.$add({
@@ -112,7 +109,12 @@ app.controller('NewStoryCtrl', function(FIREBASE_URL, $scope, $rootScope, $locat
 				});
 
 			} else {
-				console.log('You must submit either a URL or a description');
+				
+				$scope.alertMessage = {
+					message: 'You can submit either a url or a description',
+					type: 'warning'
+				};
+
 			}
 
 			

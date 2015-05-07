@@ -1,10 +1,16 @@
-app.controller('StoriesCtrl', function(FIREBASE_URL, $scope, $rootScope, $location, $firebaseArray, $firebaseObject) {
+app.controller('StoriesCtrl', function(FIREBASE_URL, $scope, $rootScope, $location, $firebaseArray, $firebaseObject, Authentication) {
 
 
 	var ref = new Firebase(FIREBASE_URL + '/stories');
 	var stories = $firebaseArray(ref);
 
 	$scope.stories = stories;
+
+
+	Authentication.checkAuth(function() {
+		console.log($rootScope.currentUser);
+	})
+	
 
 
 

@@ -8,7 +8,7 @@
 <p>Submit a link <em>or</em> provide a comment to start a discussion.</p>
 
 
-<form ng-submit="addStory(story)" ng-show="currentUser" novalidate>
+<form ng-submit="addStory(story)" ng-if="currentUser" novalidate>
 
 	<input type="text" placeholder="Post title" ng-model="story.title" required>
 
@@ -18,5 +18,5 @@
 
 	<textarea name="" id="" cols="30" rows="5" placeholder="Enter your comment. Be nice, or else" id="new-story-description" ng-model="story.description"></textarea>
 
-	<button type="submit">Post</button>
+	<button type="submit" ng-disabled="story.url && story.description">Post</button>
 </form>

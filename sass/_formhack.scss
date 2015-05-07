@@ -294,3 +294,11 @@ input[type="reset"]:focus {
 	background-color: $fh-button-hover-bg-color;
 	color: $fh-button-hover-font-color;
 }
+
+
+
+input.ng-dirty.ng-invalid,
+textarea.ng-dirty.ng-invalid {
+	border-color: $danger;
+}
+
