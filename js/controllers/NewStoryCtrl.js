@@ -1,10 +1,10 @@
-app.controller('NewStoryCtrl', function(FIREBASE_URL, $scope, $rootScope, $location, $firebaseArray, Authentication) {
-
+app.controller('NewStoryCtrl', function(FIREBASE_URL, $scope, $rootScope, $location, $firebaseArray) {
 
 	var ref = new Firebase(FIREBASE_URL + '/stories');
 	var stories = $firebaseArray(ref);
 
 	$scope.stories = stories;
+
 
 
 	var userRef = new Firebase(FIREBASE_URL + '/users/' + $rootScope.currentUser.$id + '/posts');
@@ -13,10 +13,12 @@ app.controller('NewStoryCtrl', function(FIREBASE_URL, $scope, $rootScope, $locat
 
 	// Alert Message
 	$scope.alertMessage = false;
-	var cancelAlert = function() {
+	$scope.cancelAlert = function() {
 		$scope.alertMessage = false;
 	}
 
+
+	console.log($rootScope.currentUser);
 
 
 
@@ -25,7 +27,11 @@ app.controller('NewStoryCtrl', function(FIREBASE_URL, $scope, $rootScope, $locat
 
 
 		if (story.url && story.description) {
-			console.log("you cannot do both");
+			
+			$scope.alertMessage = {
+				message: 'You can submit either a url or a description, but not both',
+				type: 'warning'
+			};
 
 		} else {
 
@@ -48,12 +54,12 @@ app.controller('NewStoryCtrl', function(FIREBASE_URL, $scope, $rootScope, $locat
 					},
 					commentCount: 0,
 					voteCount: 0
-				}).then(function() {
+				}).then(function(ref) {
 
 					thisUser.$add({
 						title: story.title,
-						date: Firebase.ServerValue.TIMESTAMP
-
+						date: Firebase.ServerValue.TIMESTAMP,
+						id: ref.key()
 					}).then(function() {
 
 						story.title = '';
@@ -86,11 +92,12 @@ app.controller('NewStoryCtrl', function(FIREBASE_URL, $scope, $rootScope, $locat
 					},
 					commentCount: 0,
 					voteCount: 0
-				}).then(function() {
+				}).then(function(ref) {
 
 					thisUser.$add({
 						title: story.title,
-						date: Firebase.ServerValue.TIMESTAMP
+						date: Firebase.ServerValue.TIMESTAMP,
+						id: ref.key()
 
 					}).then(function() {
 

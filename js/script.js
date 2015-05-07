@@ -19,4 +19,11 @@ $(document).ready(function() {
 		$('.account-info').hide();
 	})
 
+
+
+
+	if ( $('#new-story-url').hasClass('ng-dirty') ) {
+		alert("hello");
+	}
+
 });

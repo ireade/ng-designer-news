@@ -1,6 +1,6 @@
 <div ng-if="alertMessage" class="alert-message {{alertMessage.type}}">
 	<span class="message">{{alertMessage.message}}</span>
-	<span class="cancel" ng-click="cancelAlert">(Cancel)</span>
+	<span class="cancel" ng-click="cancelAlert()">(Cancel)</span>
 </div>
 
 <ul class="stories">
@@ -17,7 +17,8 @@
 
 		<div class="story-meta">
 
-			<span class="upvote" ng-show="currentUser.uid != story.user.uid"><a ng-click="upvote(story)">Upvote</a> &#8226;</span> 
+			<span class="upvote" ng-show="currentUser.uid != story.user.uid">
+				<a ng-click="upvote(story)" ng-show="hasVotedThis != story.$id">Upvote</a> &#8226;</span> 
 
 			<span class="points">{{story.voteCount}} points and <a ng-href="#/stories/{{story.$id}}">{{story.commentCount}} comments</a></span> &#8226;
 			<span class="author">{{story.date | fromNow}} from <a ng-href="#/u/{{story.user.id}}">{{story.user.first_name}} {{story.user.last_name}}</a>, {{story.user.title}}</span>

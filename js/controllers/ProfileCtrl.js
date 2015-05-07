@@ -13,7 +13,6 @@ app.controller('ProfileCtrl', function(FIREBASE_URL, $scope, $rootScope, $routeP
 	}	
 
 
-
 	var postsRef = new Firebase(FIREBASE_URL + '/users/' + $scope.userId + '/posts');
 	var recentPosts = $firebaseArray(postsRef);
 	$scope.recentPosts = recentPosts;

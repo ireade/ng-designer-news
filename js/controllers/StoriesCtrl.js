@@ -7,58 +7,50 @@ app.controller('StoriesCtrl', function(FIREBASE_URL, $scope, $rootScope, $locati
 	$scope.stories = stories;
 
 
+
+
 	// Alert Message
 	$scope.alertMessage = false;
-	var cancelAlert = function() {
+	$scope.cancelAlert = function() {
 		$scope.alertMessage = false;
 	}
 
-
-
-
-	
-	
 
 	$scope.upvote = function(story) {
 
 		var thisStoryRef = new Firebase(FIREBASE_URL + '/stories/' + story.$id);
 		var thisStory = $firebaseObject(thisStoryRef);
 
-
 		var votersRef = new Firebase(FIREBASE_URL + '/stories/' + story.$id + '/voters');
 		var voters = $firebaseArray(votersRef);
 
-		$scope.hasVoted = false;
+		var hasVoted = false;
 
 		voters.$loaded().then(function() {
 			angular.forEach(voters, function(object, id) {
 				if (object.$value == $rootScope.currentUser.uid) {
-					$scope.hasVoted = true;
-					console.log("hasVoted is true")
+					hasVoted = true;
 				}
-
 			})
 
 		}).then(function() {
 
+			if (hasVoted) {
 
-			if ($scope.hasVoted) {
-				console.log("you have already voted")
+				$scope.alertMessage = {
+					message: 'You have already voted on this post!',
+					type: 'warning'
+				};
+
 			} else {
-
-				console.log("you can vote")
-				// thisStory.voteCount++;
-				// thisStory.$save();
-				// voters.$add($rootScope.currentUser.uid);
-
-				// $scope.hasVoted = true;
+				thisStory.voteCount++;
+				thisStory.$save();
+				voters.$add($rootScope.currentUser.uid);
 			}
 
 
-		})
-
-
-	};
+		}) // end .then from voters.loaded
+	}; // end upvote
 
 
 

@@ -49,20 +49,20 @@ app.controller('AccountCtrl', function(FIREBASE_URL, $scope, $rootScope, Authent
 
 
 	// Get Current User
-	Authentication.checkAuth(function(currentUserUid) {
+	// Authentication.checkAuth(function(currentUserUid) {
 
-		if (currentUserUid != 'nouser') {
+	// 	if (currentUserUid != 'nouser') {
 
-			users.$loaded().then(function(){
-		        angular.forEach(users, function(user) {
-		        	if (user.uid == $rootScope.currentUserUid) {
-		        		$rootScope.currentUser = user;
-		        	}
-		        })
-		    });
-		}
+	// 		users.$loaded().then(function(){
+	// 	        angular.forEach(users, function(user) {
+	// 	        	if (user.uid == $rootScope.currentUserUid) {
+	// 	        		$rootScope.currentUser = user;
+	// 	        	}
+	// 	        })
+	// 	    });
+	// 	}
 
-	});
+	// });
 
 
 

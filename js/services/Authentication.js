@@ -1,8 +1,27 @@
-app.factory('Authentication', function(FIREBASE_URL, $firebaseAuth, $rootScope) {
+app.factory('Authentication', function(FIREBASE_URL, $firebaseAuth, $firebaseArray, $rootScope) {
 
 
 	var ref = new Firebase(FIREBASE_URL);
 	var auth = $firebaseAuth(ref);
+
+	var ref = new Firebase(FIREBASE_URL + '/users');
+	var users = $firebaseArray(ref);
+
+
+	checkAuth(function(currentUserUid) {
+
+		if (currentUserUid != 'nouser') {
+
+			users.$loaded().then(function(){
+		        angular.forEach(users, function(user) {
+		        	if (user.uid == $rootScope.currentUserUid) {
+		        		$rootScope.currentUser = user;
+		        	}
+		        })
+		    });
+		}
+
+	});
 
 
 	return {

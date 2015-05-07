@@ -1,6 +1,6 @@
 <div ng-if="alertMessage" class="alert-message {{alertMessage.type}}">
 	<span class="message">{{alertMessage.message}}</span>
-	<span class="cancel" ng-click="cancelAlert">(Cancel)</span>
+	<span class="cancel" ng-click="cancelAlert()">(Cancel)</span>
 </div>
 
 <h1>Post a story</h1>
@@ -8,15 +8,15 @@
 <p>Submit a link <em>or</em> provide a comment to start a discussion.</p>
 
 
-<form ng-submit="addStory(story)" novalidate>
+<form ng-submit="addStory(story)" ng-show="currentUser" novalidate>
 
-	<input type="text" placeholder="Post title" ng-model="story.title">
+	<input type="text" placeholder="Post title" ng-model="story.title" required>
 
-	<input type="url" placeholder="http://www.bitsofco.de" ng-model="story.url">
+	<input type="url" placeholder="http://www.bitsofco.de" id="new-story-url" ng-model="story.url">
 
 	<p class="url-or-comment">Include a url <em>or</em> a comment</p>
 
-	<textarea name="" id="" cols="30" rows="5" placeholder="Enter your comment. Be nice, or else" ng-model="story.description"></textarea>
+	<textarea name="" id="" cols="30" rows="5" placeholder="Enter your comment. Be nice, or else" id="new-story-description" ng-model="story.description"></textarea>
 
 	<button type="submit">Post</button>
 </form>

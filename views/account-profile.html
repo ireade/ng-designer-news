@@ -27,7 +27,7 @@
 	<h1>Recent Posts</h1>
 	<ul>
 		<li ng-repeat="post in recentPosts | orderBy: '-date' ">
-			<h2><a ng-href="#/stories/{{post.$id}}">{{post.title}}</a></h2>
+			<h2><a ng-href="#/stories/{{post.id}}">{{post.title}}</a></h2>
 			<p>{{post.date | date}}</p>
 		</li>
 	</ul>
