@@ -1,5 +1,7 @@
 <div class="single-story">
 
+<div ng-show="story.category" class="story-category {{story.category}}">{{story.category}}</div>
+
 <h1 ng-if="story.url"><a ng-href="{{story.url}}" target="_blank">{{story.title}} <span class="story-link">({{story.url}})</span></a></h1>
 
 <h1 ng-if="!story.url">{{story.title}} <span class="story-link">(self.ng-designer-news)</span>
@@ -16,53 +18,32 @@
 
 
 
-<form>
-	<textarea name="" id="" cols="30" rows="5" placeholder="Enter your comment. Be nice, or else."></textarea>
+<form ng-submit="addComment(comment)" novalidate>
+
+	<textarea ng-model="comment.text" cols="30" rows="5" placeholder="Enter your comment. Be nice, or else."></textarea>
 
 	<button type="submit">Comment</button>
 </form>
 
 
 
-<h2>5 comments</h2>
+<h2>{{story.commentCount}} comments</h2>
 
 <ul class="comments">
 
-	<li class="single-comment">
-		<h3><a href="">Ire Aderinokun</a>, Web Designer</h3>
+	<li class="single-comment" ng-repeat="comment in comments">
+		<h3><a ng-href="#/u/{{comment.user.id}}">{{comment.user.first_name}} {{comment.user.last_name}}</a>, {{comment.user.title}}</h3>
 
-		<p>Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed posuere consectetur est at lobortis.</p>
+		<p>{{comment.text}}</p>
 
 		<div class="story-meta">
-			<span class="upvote"><a href="">Upvote</a> &#8226;</span> 
-			<span class="points">7 points</span> &#8226;
-			<span class="author">7 hours ago</span>
+			<span class="comment-upvote"><a href="">Upvote</a> &#8226;</span> 
+			<span class="comment-upvote">{{comment.voteCount}} points</span> &#8226;
+			<span class="comment-date">{{comment.date | fromNow}}</span>
 		</div>
 	</li>
 
-	<li class="single-comment">
-		<h3><a href="">Ire Aderinokun</a>, Web Designer</h3>
 
-		<p>Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed posuere consectetur est at lobortis.</p>
-
-		<div class="story-meta">
-			<span class="upvote"><a href="">Upvote</a> &#8226;</span> 
-			<span class="points">7 points</span> &#8226;
-			<span class="author">7 hours ago</span>
-		</div>
-	</li>
-
-	<li class="single-comment">
-		<h3><a href="">Ire Aderinokun</a>, Web Designer</h3>
-
-		<p>Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed posuere consectetur est at lobortis.</p>
-
-		<div class="story-meta">
-			<span class="upvote"><a href="">Upvote</a> &#8226;</span> 
-			<span class="points">7 points</span> &#8226;
-			<span class="author">7 hours ago</span>
-		</div>
-	</li>
 </ul>
 
 

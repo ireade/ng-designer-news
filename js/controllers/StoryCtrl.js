@@ -1,4 +1,4 @@
-app.controller('StoryCtrl', function(FIREBASE_URL, $scope, $rootScope, $location, $firebaseArray, $firebaseObject, $routeParams) {
+app.controller('StoryCtrl', function(FIREBASE_URL, $scope, $rootScope, $location, $firebaseArray, $firebaseObject, $routeParams, Authentication) {
 
 	var storyId = $routeParams.storyId;
 
@@ -8,14 +8,23 @@ app.controller('StoryCtrl', function(FIREBASE_URL, $scope, $rootScope, $location
 	$scope.story = story;
 
 
+	var userRef;
+	var thisUser;
+
+	Authentication.checkAuth(function() {
+		userRef = new Firebase(FIREBASE_URL + '/users/' + $rootScope.currentUser.$id + '/comments');
+		thisUser = $firebaseArray(userRef);
+	})
 
 
 
+
+
+	// Voting
 
 	var votersRef = new Firebase(FIREBASE_URL + '/stories/' + storyId + '/voters');
 	var voters = $firebaseArray(votersRef);
 
-	var hasVoted = false;
 	$scope.hasVoted = false;
 
 	voters.$loaded().then(function() {
@@ -24,9 +33,7 @@ app.controller('StoryCtrl', function(FIREBASE_URL, $scope, $rootScope, $location
 				$scope.hasVoted = true;
 			}
 		})
-
 	})
-	
 
 	$scope.upvote = function() {
 
@@ -41,6 +48,49 @@ app.controller('StoryCtrl', function(FIREBASE_URL, $scope, $rootScope, $location
 		}
 
 	};
+
+
+
+	// Comments
+
+	var commentsRef = new Firebase(FIREBASE_URL + '/stories/' + storyId + '/comments');
+	var comments = $firebaseArray(commentsRef);
+
+	$scope.comments = comments;
+
+	$scope.addComment = function(comment) {
+
+		comments.$add({
+			text: $scope.comment.text,
+			date: Firebase.ServerValue.TIMESTAMP,
+			user: {
+				first_name: $rootScope.currentUser.first_name,
+				last_name: $rootScope.currentUser.last_name,
+				title: $rootScope.currentUser.title,
+				uid: $rootScope.currentUser.uid,
+				id: $rootScope.currentUser.$id
+			},
+			voteCount: 0
+		}).then(function() {
+
+			thisUser.$add({
+				title: story.title,
+				date: Firebase.ServerValue.TIMESTAMP,
+				id: ref.key(),
+				comment: $scope.comment.text
+
+			}).then(function() {
+
+				comment.text = '';
+				story.commentCount++;
+				story.$save();
+
+			})
+
+			
+		});
+	};
+
 
 
 

@@ -20,8 +20,7 @@ app.controller('NewStoryCtrl', function(FIREBASE_URL, $scope, $rootScope, $locat
 		thisUser = $firebaseArray(userRef);
 	})
 	
-
-
+ 
 	$scope.addStory = function(story) {
 
 

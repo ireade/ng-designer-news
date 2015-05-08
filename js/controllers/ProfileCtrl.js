@@ -18,4 +18,9 @@ app.controller('ProfileCtrl', function(FIREBASE_URL, $scope, $rootScope, $routeP
 	$scope.recentPosts = recentPosts;
 
 
+	var commentsRef = new Firebase(FIREBASE_URL + '/users/' + $scope.userId + '/comments');
+	var recentComments = $firebaseArray(commentsRef);
+	$scope.recentComments = recentComments;
+
+
 })

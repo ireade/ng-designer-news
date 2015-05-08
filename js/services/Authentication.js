@@ -8,9 +8,6 @@ app.factory('Authentication', function(FIREBASE_URL, $firebaseAuth, $firebaseArr
 	var users = $firebaseArray(ref);
 
 
-	
-
-
 
 	return {
 		registerUser: function(user, callback) {
