@@ -14,6 +14,7 @@ app.controller('AccountCtrl', function(FIREBASE_URL, $scope, $rootScope, Authent
 				last_name: user.last_name,
 				title: user.title,
 				email: user.email,
+				karma: 0
 			}).then(function() {
 
 				$scope.user.first_name = '';

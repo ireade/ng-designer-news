@@ -27,7 +27,7 @@
 
 
 
-<h2>{{story.commentCount}} comments</h2>
+<h2>{{comments.length}} comments</h2>
 
 <ul class="comments">
 
@@ -37,7 +37,7 @@
 		<p>{{comment.text}}</p>
 
 		<div class="story-meta">
-			<span class="comment-upvote"><a href="">Upvote</a> &#8226;</span> 
+			<span class="comment-upvote" ng-show="currentUser.uid != comment.user.uid"><a class="upvote-link" ng-click="upvoteComment(comment)">Upvote</a> &#8226;</span> 
 			<span class="comment-upvote">{{comment.voteCount}} points</span> &#8226;
 			<span class="comment-date">{{comment.date | fromNow}}</span>
 		</div>

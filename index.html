@@ -43,7 +43,7 @@
 
 			<ul class="header-nav-right">
 				<li ng-show="!currentUser" id="signin-button">Sign in / Register</li>
-				<li ng-show="currentUser" id="account-name">{{currentUser.first_name}} (x)</li>
+				<li ng-show="currentUser" id="account-name">{{currentUser.first_name}} ({{currentUser.karma}})</li>
 			</ul>
 
 			<ul class="account-info">

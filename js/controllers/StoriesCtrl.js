@@ -52,6 +52,15 @@ app.controller('StoriesCtrl', function(FIREBASE_URL, $scope, $rootScope, $locati
 				thisStory.voteCount++;
 				thisStory.$save();
 				voters.$add($rootScope.currentUser.uid);
+
+				// Story User Karma
+				var storyAuthorRef = new Firebase(FIREBASE_URL + '/users/' + story.user.id);
+				var storyAuthor = $firebaseObject(storyAuthorRef);
+
+				storyAuthor.$loaded().then(function() {
+					storyAuthor.karma++;
+					storyAuthor.$save();
+				})
 			}
 
 

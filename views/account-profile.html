@@ -21,7 +21,23 @@
 
 </div>
 
-<div class="recent-posts">
+<section>
+	<div class="points">
+		<h2>Karma</h2>
+		<span class="number">{{user.karma}}</span>
+	</div>
+	<div class="points">
+		<h2>Posts</h2>
+		<span class="number">{{recentPosts.length}}</span>
+	</div>
+	<div class="points">
+		<h2>Comments</h2>
+		<span class="number">{{recentComments.length}}</span>
+	</div>
+</section>
+
+
+<section>
 	<h1>Recent Posts</h1>
 	<ul>
 		<li ng-repeat="post in recentPosts | orderBy: '-date' ">
@@ -29,9 +45,9 @@
 			<p>{{post.date | date}}</p>
 		</li>
 	</ul>
-</div>
+</section>
 
-<div class="recent-posts">
+<section class="recent-comments">
 	<h1>Recent Comments</h1>
 	<ul>
 		<li ng-repeat="comment in recentComments | orderBy: '-date' ">
@@ -39,7 +55,7 @@
 			Posted to <a ng-href="#/stories/{{comment.id}}">{{comment.title}}</a>
 		</li>
 	</ul>
-</div>
+</section>
 
 
 </div>

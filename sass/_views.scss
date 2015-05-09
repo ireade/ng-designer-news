@@ -106,6 +106,10 @@ span.upvote {
 	.single-comment {
 		border-bottom: 1px solid $light-grey;
 		padding: 20px 0;
+
+		.upvote-link {
+			cursor: pointer;
+		}
 	}
 }
 
@@ -114,9 +118,9 @@ span.upvote {
 
 .account-profile {
 
-	.recent-posts {
-		margin: 40px 0;
-		padding: 20px 0;
+	section {
+		margin: 20px 0;
+		padding: 30px 0 20px;
 		border-top: 1px solid $light-grey;
 	}
 
@@ -127,6 +131,25 @@ span.upvote {
 	li {
 		margin-bottom: 10px;
 	}
+
+	.points {
+		display: inline-block;
+		width: 30%;
+		margin: 0 auto;
+		text-align: center;
+		padding: 0 10px;
+
+		.number {
+			font-size: 3rem;
+			display: block;
+		}
+	}
+
+	.recent-comments {
+		li { margin-bottom: 10px;}
+	}
 }
+
+
 
 

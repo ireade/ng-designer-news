@@ -40,11 +40,24 @@ app.controller('StoryCtrl', function(FIREBASE_URL, $scope, $rootScope, $location
 		if ($scope.hasVoted) {
 			console.log("you have already voted")
 		} else {
+
 			story.voteCount++;
 			story.$save();
+
 			voters.$add($rootScope.currentUser.uid);
 
 			$scope.hasVoted = true;
+
+
+			// Story User Karma
+			var storyAuthorRef = new Firebase(FIREBASE_URL + '/users/' + story.user.id);
+			var storyAuthor = $firebaseObject(storyAuthorRef);
+
+			storyAuthor.$loaded().then(function() {
+				storyAuthor.karma++;
+				storyAuthor.$save();
+			})
+
 		}
 
 	};
@@ -90,6 +103,57 @@ app.controller('StoryCtrl', function(FIREBASE_URL, $scope, $rootScope, $location
 			
 		});
 	};
+
+
+	$scope.upvoteComment = function(comment) {
+
+
+		var thisCommentRef = new Firebase(FIREBASE_URL + '/stories/' + story.$id + '/comments/' + comment.$id);
+		var thisComment = $firebaseObject(thisCommentRef);
+
+		var commentVotersRef = new Firebase(FIREBASE_URL + '/stories/' + story.$id + '/comments/' + comment.$id + '/voters');
+		var commentVoters = $firebaseArray(commentVotersRef);
+
+		var hasVotedComment = false;
+
+		commentVoters.$loaded().then(function() {
+			angular.forEach(commentVoters, function(object, id) {
+				if (object.$value == $rootScope.currentUser.uid) {
+					hasVotedComment = true;
+				}
+			})
+
+		}).then(function() {
+
+			if (hasVotedComment) {
+
+				$scope.alertMessage = {
+					message: 'You have already voted on this comment!',
+					type: 'warning'
+				};
+
+			} else {
+
+				thisComment.voteCount++;
+				thisComment.$save();
+
+				commentVoters.$add($rootScope.currentUser.uid);
+
+				// Comment User Karma
+				var commentAuthorRef = new Firebase(FIREBASE_URL + '/users/' + comment.user.id);
+				var commentAuthor = $firebaseObject(commentAuthorRef);
+
+				commentAuthor.$loaded().then(function() {
+					commentAuthor.karma++;
+					commentAuthor.$save();
+				})
+
+			}
+
+
+		}) // end .then from voters.loaded
+
+	}
 
 
 
