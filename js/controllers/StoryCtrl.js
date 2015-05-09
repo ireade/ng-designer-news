@@ -18,47 +18,42 @@ app.controller('StoryCtrl', function(FIREBASE_URL, $scope, $rootScope, $location
 
 
 
-
-
 	// Voting
 
-	var votersRef = new Firebase(FIREBASE_URL + '/stories/' + storyId + '/voters');
-	var voters = $firebaseArray(votersRef);
+	if ($rootScope.currentUser) {
 
-	$scope.hasVoted = false;
+		var votersRef = new Firebase(FIREBASE_URL + '/stories/' + storyId + '/voters');
+		var voters = $firebaseArray(votersRef);
 
-	voters.$loaded().then(function() {
-		angular.forEach(voters, function(object, id) {
-			if (object.$value == $rootScope.currentUser.uid) {
-				$scope.hasVoted = true;
-			}
-		})
-	})
+		$scope.hasVoted = false;
+
+		voters.$loaded().then(function() {
+			angular.forEach(voters, function(object, id) {
+				if (object.$value == $rootScope.currentUser.uid) {
+					$scope.hasVoted = true;
+				}
+			})
+		}) 
+	}
 
 	$scope.upvote = function() {
 
-		if ($scope.hasVoted) {
-			console.log("you have already voted")
-		} else {
+		story.voteCount++;
+		story.$save();
 
-			story.voteCount++;
-			story.$save();
+		voters.$add($rootScope.currentUser.uid);
 
-			voters.$add($rootScope.currentUser.uid);
-
-			$scope.hasVoted = true;
+		$scope.hasVoted = true;
 
 
-			// Story User Karma
-			var storyAuthorRef = new Firebase(FIREBASE_URL + '/users/' + story.user.id);
-			var storyAuthor = $firebaseObject(storyAuthorRef);
+		// Story User Karma
+		var storyAuthorRef = new Firebase(FIREBASE_URL + '/users/' + story.user.id);
+		var storyAuthor = $firebaseObject(storyAuthorRef);
 
-			storyAuthor.$loaded().then(function() {
-				storyAuthor.karma++;
-				storyAuthor.$save();
-			})
-
-		}
+		storyAuthor.$loaded().then(function() {
+			storyAuthor.karma++;
+			storyAuthor.$save();
+		})
 
 	};
 

@@ -9,7 +9,7 @@
 
 
 <div class="story-meta">
-	<span class="upvote" ng-show="currentUser.uid != story.user.uid" ng-if="!hasVoted"><a ng-click="upvote(story.$id)">Upvote</a> &#8226;</span> 
+	<span class="upvote" ng-if="currentUser && (currentUser.uid != story.user.uid) && !hasVoted"><a ng-click="upvote(story.$id)">Upvote</a> &#8226;</span> 
 	<span class="points">{{story.voteCount}} points and {{story.commentCount}} comments</span> &#8226;
 	<span class="author">{{story.date | fromNow}} from <a ng-href="#/u/{{story.user.id}}">{{story.user.first_name}} {{story.user.last_name}}</a>, {{story.user.title}}</span>
 </div>
@@ -19,10 +19,12 @@
 
 
 <form ng-submit="addComment(comment)" novalidate>
-
 	<textarea ng-model="comment.text" cols="30" rows="5" placeholder="Enter your comment. Be nice, or else."></textarea>
 
-	<button type="submit">Comment</button>
+	<button type="submit" ng-if="currentUser">Comment</button>
+	<div ng-if="!currentUser" class="alert-message warning">
+		<span class="message">You must be logged in to leave a comment</span>
+	</div>
 </form>
 
 
@@ -37,7 +39,7 @@
 		<p>{{comment.text}}</p>
 
 		<div class="story-meta">
-			<span class="comment-upvote" ng-show="currentUser.uid != comment.user.uid"><a class="upvote-link" ng-click="upvoteComment(comment)">Upvote</a> &#8226;</span> 
+			<span class="comment-upvote" ng-if="currentUser && (currentUser.uid != comment.user.uid)"><a class="upvote-link" ng-click="upvoteComment(comment)">Upvote</a> &#8226;</span> 
 			<span class="comment-upvote">{{comment.voteCount}} points</span> &#8226;
 			<span class="comment-date">{{comment.date | fromNow}}</span>
 		</div>
