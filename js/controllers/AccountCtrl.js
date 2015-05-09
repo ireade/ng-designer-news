@@ -3,6 +3,10 @@ app.controller('AccountCtrl', function(FIREBASE_URL, $scope, $rootScope, Authent
 	var ref = new Firebase(FIREBASE_URL + '/users');
 	var users = $firebaseArray(ref);
 
+	Authentication.checkAuth(function() {
+		console.log("checked")
+	})
+
 
 	$scope.registerUser = function(user) {
 
@@ -49,6 +53,8 @@ app.controller('AccountCtrl', function(FIREBASE_URL, $scope, $rootScope, Authent
 		$scope.email = '';
 	};
 
+	
+
 
 	// Get Current User
 	// Authentication.checkAuth(function(currentUserUid) {
@@ -65,6 +71,9 @@ app.controller('AccountCtrl', function(FIREBASE_URL, $scope, $rootScope, Authent
 	// 	}
 
 	// });
+
+
+	
 
 
 

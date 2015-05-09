@@ -4,8 +4,8 @@ app.factory('Authentication', function(FIREBASE_URL, $firebaseAuth, $firebaseArr
 	var ref = new Firebase(FIREBASE_URL);
 	var auth = $firebaseAuth(ref);
 
-	var ref = new Firebase(FIREBASE_URL + '/users');
-	var users = $firebaseArray(ref);
+	var userRef = new Firebase(FIREBASE_URL + '/users');
+	var users = $firebaseArray(userRef);
 
 
 
@@ -21,6 +21,20 @@ app.factory('Authentication', function(FIREBASE_URL, $firebaseAuth, $firebaseArr
 			  } else {
 			    console.log("Successfully created user account with uid:", userData.uid);
 			    callback(userData.uid);
+			  }
+			});
+
+		},
+		deleteUser: function(user) {
+
+			ref.removeUser({
+			  email    : user.email,
+			  password : user.password
+			}, function(error) {
+			  if (error === null) {
+			    console.log("User removed successfully");
+			  } else {
+			    console.log("Error removing user:", error);
 			  }
 			});
 
@@ -80,7 +94,6 @@ app.factory('Authentication', function(FIREBASE_URL, $firebaseAuth, $firebaseArr
 				}
 			})
 		}
-
 
 	}
 

@@ -6,18 +6,22 @@
 
 <div class="account-settings" ng-if="currentUser.$id == userId">
 
-<form ng-submit="updateUser(user)" ng-show="updateFormVisible">
+<form ng-submit="updateUser(user)" ng-show="updateFormVisible" novalidate>
 	<input type="text" name="first_name" ng-model="user.first_name" placeholder="First name">
-
 	<input type="text" name="last_name" ng-model="user.last_name" placeholder="Last name">
-
 	<input type="text" name="title" ng-model="user.title" placeholder="Job title">
+	<button class="success" type="submit" ng-click="updateFormVisible = false">Update Profile</button>
+</form>
 
-	<button class="success" type="submit">Update Profile</button>
+
+<form ng-submit="deleteUser(user)" ng-show="deleteUserFormVisible" novalidate>
+	<input type="email" name="email" ng-model="user.email" placeholder="Email address">
+	<input type="password" name="password" ng-model="user.password" placeholder="Password">
+	<button class="danger" type="submit">Delete Account</button>
 </form>
 	
 <button ng-click="updateFormVisible = true">Edit Profile</button>
-<button class="danger">Delete Account</button>
+<button class="warning" ng-click="deleteUserFormVisible = true">Delete Account</button>
 
 </div>
 

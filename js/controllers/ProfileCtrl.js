@@ -1,4 +1,4 @@
-app.controller('ProfileCtrl', function(FIREBASE_URL, $scope, $rootScope, $routeParams, $firebaseObject, $firebaseArray, $location) {
+app.controller('ProfileCtrl', function(FIREBASE_URL, $scope, $rootScope, $routeParams, $firebaseObject, $firebaseArray, $location, Authentication) {
 
 	$scope.userId = $routeParams.userId;
 	var ref = new Firebase(FIREBASE_URL + '/users/' + $scope.userId);
@@ -11,6 +11,13 @@ app.controller('ProfileCtrl', function(FIREBASE_URL, $scope, $rootScope, $routeP
 			$scope.updateFormVisible = false;
 		});
 	}	
+
+	$scope.deleteUser = function(user) {
+
+		Authentication.deleteUser(user);
+		user.$remove();
+		$location.path('/');
+	};
 
 
 	var postsRef = new Firebase(FIREBASE_URL + '/users/' + $scope.userId + '/posts');
