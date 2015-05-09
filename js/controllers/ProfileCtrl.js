@@ -1,4 +1,4 @@
-app.controller('ProfileCtrl', function(FIREBASE_URL, $scope, $rootScope, $routeParams, $firebaseObject, $firebaseArray, $location, Authentication) {
+app.controller('ProfileCtrl', function(FIREBASE_URL, $scope, $routeParams, $firebaseObject, $firebaseArray, $location, Authentication) {
 
 	$scope.userId = $routeParams.userId;
 	var ref = new Firebase(FIREBASE_URL + '/users/' + $scope.userId);
@@ -10,10 +10,10 @@ app.controller('ProfileCtrl', function(FIREBASE_URL, $scope, $rootScope, $routeP
 		user.$save(user).then(function() {
 			$scope.updateFormVisible = false;
 		});
-	}	
+	};	
+
 
 	$scope.deleteUser = function(user) {
-
 		Authentication.deleteUser(user);
 		user.$remove();
 		$location.path('/');
@@ -24,10 +24,8 @@ app.controller('ProfileCtrl', function(FIREBASE_URL, $scope, $rootScope, $routeP
 	var recentPosts = $firebaseArray(postsRef);
 	$scope.recentPosts = recentPosts;
 
-
 	var commentsRef = new Firebase(FIREBASE_URL + '/users/' + $scope.userId + '/comments');
 	var recentComments = $firebaseArray(commentsRef);
 	$scope.recentComments = recentComments;
-
 
 })

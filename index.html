@@ -11,18 +11,17 @@
 
 	<div ng-controller="AccountCtrl">
 
+	<!-- Hidden container with login and register -->
 	<div class="login-register-container">
 		<div class="container">
 
 			<div class="sign-in">
-
 				<form ng-submit="signInUser(user)">
 					<input type="email" ng-model="user.email" placeholder="Email address">
 					<input type="password"  ng-model="user.password" placeholder="Password">
 					<button type="submit" id="sign-in">Sign in</button>
 					<a ng-href="#/reset-password" class="password-help">I need help.</a>
 				</form>
-
 			</div>
 
 			<div class="register">
@@ -33,12 +32,14 @@
 
 		</div>
 	</div>
-
+	
+	<!-- Main navigation -->
 	<nav class="header-nav">
 		<div class="container header-nav-container">
 			
-			<ul class="header-nav-left">
-				<li class="active"><a ng-href="#/">Stories</a></li>
+			<ul class="header-nav-left" ng-controller="NavCtrl">
+				<li ng-class="{ active: isStory()}"><a ng-href="#/">Stories</a></li>
+				<li ng-class="{ active: isActive('/about')}"><a ng-href="#/about">About</a></li>
 			</ul>
 
 			<ul class="header-nav-right">
@@ -54,20 +55,23 @@
 		</div>
 	</nav>
 
-	</div>
+	</div> <!-- end AccountCtrl -->
 
 
 	<div class="container main">
+
+		<!-- Sidebar navigation -->
 		<nav class="sidebar-nav">
-			<ul>
-				<li class="active"><a ng-href="#/">Top stories</a></li>
-				<li><a ng-href="#/recent">Recent stories</a></li>
-				<li><a ng-href="#/discussions">Discussions</a></li>
-				<li class="new-story" ng-show="currentUser"><a ng-href="#/submit">New Story</a></li>
+			<ul ng-controller="NavCtrl">
+				<li ng-class="{ active: isActive('/')}"><a ng-href="#/">Top stories</a></li>
+				<li ng-class="{ active: isActive('/recent')}"><a ng-href="#/recent">Recent stories</a></li>
+				<li ng-class="{ active: isActive('/discussions')}"><a ng-href="#/discussions">Discussions</a></li>
+				<li class="new-story" ng-class="{ active: isActive('/submit')}" ng-show="currentUser"><a ng-href="#/submit">New Story</a></li>
 			</ul>
 		</nav>
 		
-
+		
+		<!-- View -->
 		<div ng-view></div>
 	</div>
 
@@ -93,6 +97,7 @@
     <script src="js/controllers/NewStoryCtrl.js"></script>
     <script src="js/controllers/StoriesCtrl.js"></script>
     <script src="js/controllers/StoryCtrl.js"></script>
+    <script src="js/controllers/NavCtrl.js"></script>
 
 </body>
 </html>

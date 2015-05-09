@@ -23,14 +23,16 @@ app.controller('NewStoryCtrl', function(FIREBASE_URL, $scope, $rootScope, $locat
  
 	$scope.addStory = function(story) {
 
-
-		if (story.url && story.description) {
-			
+		if ( !(story.url) && !(story.description) ) {
+			$scope.alertMessage = {
+				message: 'You can submit either a url or a description',
+				type: 'warning'
+			};
+		} else if ( (story.url) && (story.description) ) {
 			$scope.alertMessage = {
 				message: 'You can submit either a url or a description, but not both',
 				type: 'warning'
 			};
-
 		} else {
 
 			var storyCategory = getCategory(story.title);
@@ -107,14 +109,7 @@ app.controller('NewStoryCtrl', function(FIREBASE_URL, $scope, $rootScope, $locat
 
 				});
 
-			} else {
-				
-				$scope.alertMessage = {
-					message: 'You can submit either a url or a description',
-					type: 'warning'
-				};
-
-			}
+			} 
 
 			
 

@@ -9,6 +9,10 @@ app.config(function($routeProvider) {
 			controller: 'StoriesCtrl',
 			templateUrl: 'views/stories-top.html'
 		})
+		.when('/about', {
+			controller: 'StoriesCtrl',
+			templateUrl: 'views/about.html'
+		})
 		.when('/recent', {
 			controller: 'StoriesCtrl',
 			templateUrl: 'views/stories-recent.html'

@@ -7,13 +7,8 @@ app.controller('StoriesCtrl', function(FIREBASE_URL, $scope, $rootScope, $locati
 	$scope.stories = stories;
 
 
-	Authentication.checkAuth(function() {
-		console.log($rootScope.currentUser);
-	})
+	Authentication.checkAuth(function() { })
 	
-
-
-
 
 	// Alert Message
 	$scope.alertMessage = false;

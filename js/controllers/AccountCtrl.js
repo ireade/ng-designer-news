@@ -3,10 +3,7 @@ app.controller('AccountCtrl', function(FIREBASE_URL, $scope, $rootScope, Authent
 	var ref = new Firebase(FIREBASE_URL + '/users');
 	var users = $firebaseArray(ref);
 
-	Authentication.checkAuth(function() {
-		console.log("checked")
-	})
-
+	Authentication.checkAuth(function() {})
 
 	$scope.registerUser = function(user) {
 
@@ -52,34 +49,6 @@ app.controller('AccountCtrl', function(FIREBASE_URL, $scope, $rootScope, Authent
 		Authentication.resetPassword(email);
 		$scope.email = '';
 	};
-
-	
-
-
-	// Get Current User
-	// Authentication.checkAuth(function(currentUserUid) {
-
-	// 	if (currentUserUid != 'nouser') {
-
-	// 		users.$loaded().then(function(){
-	// 	        angular.forEach(users, function(user) {
-	// 	        	if (user.uid == $rootScope.currentUserUid) {
-	// 	        		$rootScope.currentUser = user;
-	// 	        	}
-	// 	        })
-	// 	    });
-	// 	}
-
-	// });
-
-
-	
-
-
-
-	
-
-
 
 
 

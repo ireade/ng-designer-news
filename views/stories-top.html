@@ -4,7 +4,6 @@
 </div>
 
 <ul class="stories">
-
 	<li class="story-exerpt" ng-repeat="story in stories | orderBy: '-voteCount' ">
 		
 		<div ng-show="story.category" class="story-category {{story.category}}">{{story.category}}</div>
@@ -24,5 +23,4 @@
 			<span class="author">{{story.date | fromNow}} from <a ng-href="#/u/{{story.user.id}}">{{story.user.first_name}} {{story.user.last_name}}</a>, {{story.user.title}}</span>
 		</div>
 	</li>
-
 </ul>
