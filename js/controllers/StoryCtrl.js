@@ -7,6 +7,12 @@ app.controller('StoryCtrl', function(FIREBASE_URL, $scope, $rootScope, $location
 
 	$scope.story = story;
 
+	// Alert Message
+	$scope.alertMessage = false;
+	$scope.cancelAlert = function() {
+		$scope.alertMessage = false;
+	}
+
 
 	var userRef;
 	var thisUser;

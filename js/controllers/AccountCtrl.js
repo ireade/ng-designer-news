@@ -28,6 +28,7 @@ app.controller('AccountCtrl', function(FIREBASE_URL, $scope, $rootScope, Authent
 			});
 
 		});
+
 	};
 
 	$scope.signInUser = function(user) {

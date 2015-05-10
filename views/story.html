@@ -1,3 +1,8 @@
+<div ng-if="alertMessage" class="alert-message {{alertMessage.type}}">
+	<span class="message">{{alertMessage.message}}</span>
+	<span class="cancel" ng-click="cancelAlert()">(Cancel)</span>
+</div>
+
 <div class="single-story">
 
 <div ng-show="story.category" class="story-category {{story.category}}">{{story.category}}</div>
