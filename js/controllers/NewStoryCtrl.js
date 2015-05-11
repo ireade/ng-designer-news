@@ -23,13 +23,14 @@ app.controller('NewStoryCtrl', function(FIREBASE_URL, $scope, $rootScope, $locat
  
 	$scope.addStory = function(story) {
 
-		// switch(story) {
-		// 	case: 
-		// }
-
-		if ( !(story.url) && !(story.description) ) {
+		if ( !story.title ) {
 			$scope.alertMessage = {
-				message: 'You can submit either a url or a description',
+				message: 'A title is required',
+				type: 'warning'
+			};
+		} else if ( !(story.url) && !(story.description) ) {
+			$scope.alertMessage = {
+				message: 'You must submit either a url or a description',
 				type: 'warning'
 			};
 		} else if ( (story.url) && (story.description) ) {
@@ -37,11 +38,10 @@ app.controller('NewStoryCtrl', function(FIREBASE_URL, $scope, $rootScope, $locat
 				message: 'You can submit either a url or a description, but not both',
 				type: 'warning'
 			};
-		} else {
+
+		} else if ( story.url && !story.description ) {
 
 			var storyCategory = getCategory(story.title);
-
-			if (story.url) {
 
 				stories.$add({
 					title: story.title,
@@ -58,64 +58,55 @@ app.controller('NewStoryCtrl', function(FIREBASE_URL, $scope, $rootScope, $locat
 					},
 					commentCount: 0,
 					voteCount: 0
-				}).then(function(ref) {
+				}).then(function(ref){
 
 					thisUser.$add({
 						title: story.title,
 						date: Firebase.ServerValue.TIMESTAMP,
 						id: ref.key()
 					}).then(function() {
-
 						story.title = '';
 						story.description = '';
 						story.url = '';
-
 						$location.path('/');
-
 					})
 
 				});
 
 
-			} else if (story.description) {
+		} else if ( !story.url && story.description ) {
 
-				stories.$add({
+			var storyCategory = getCategory(story.title);
+
+			stories.$add({
+				title: story.title,
+				url: null,
+				category: storyCategory,
+				description: story.description,
+				date: Firebase.ServerValue.TIMESTAMP,
+				user: {
+					first_name: $rootScope.currentUser.first_name,
+					last_name: $rootScope.currentUser.last_name,
+					title: $rootScope.currentUser.title,
+					uid: $rootScope.currentUser.uid,
+					id: $rootScope.currentUser.$id
+				},
+				commentCount: 0,
+				voteCount: 0
+			}).then(function(ref) {
+
+				thisUser.$add({
 					title: story.title,
-					url: null,
-					category: storyCategory,
-					description: story.description,
 					date: Firebase.ServerValue.TIMESTAMP,
-					user: {
-						first_name: $rootScope.currentUser.first_name,
-						last_name: $rootScope.currentUser.last_name,
-						title: $rootScope.currentUser.title,
-						uid: $rootScope.currentUser.uid,
-						id: $rootScope.currentUser.$id
-					},
-					commentCount: 0,
-					voteCount: 0
-				}).then(function(ref) {
+					id: ref.key()
+				}).then(function() {
+					story.title = '';
+					story.description = '';
+					story.url = '';
+					$location.path('/');
+				})
 
-					thisUser.$add({
-						title: story.title,
-						date: Firebase.ServerValue.TIMESTAMP,
-						id: ref.key()
-
-					}).then(function() {
-
-						story.title = '';
-						story.description = '';
-						story.url = '';
-
-						$location.path('/');
-
-					})
-
-				});
-
-			} 
-
-			
+			});
 
 		} 
 
