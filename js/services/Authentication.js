@@ -56,15 +56,15 @@ app.factory('Authentication', function(FIREBASE_URL, $firebaseAuth, $firebaseArr
 		logoutUser: function() {
 			ref.unauth();
 		},
-		resetPassword: function(email) {
+		resetPassword: function(email, callback) {
 
 			ref.resetPassword({
 			    email : email
 			}, function(error) {
 				if (error === null) {
-					console.log("Password reset email sent successfully");
+					callback('noerror');
 				} else {
-					console.log("Error sending password reset email:", error);
+					callback(error);
 				}
 			});
 

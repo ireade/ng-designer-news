@@ -5,6 +5,14 @@ app.controller('AccountCtrl', function(FIREBASE_URL, $scope, $rootScope, Authent
 
 	Authentication.checkAuth(function() {})
 
+
+	// Alert Message
+	$scope.alertMessage = false;
+	$scope.cancelAlert = function() {
+		$scope.alertMessage = false;
+	}
+
+
 	$scope.registerUser = function(user) {
 
 		Authentication.registerUser(user, function(uid) {
@@ -43,12 +51,29 @@ app.controller('AccountCtrl', function(FIREBASE_URL, $scope, $rootScope, Authent
 	$scope.logoutUser = function() {
 		Authentication.logoutUser();
 		$location.path('/');
+		Authentication.checkAuth(function() {})
 		return false;
 	};
 
 	$scope.resetPassword = function(email) {
-		Authentication.resetPassword(email);
+		Authentication.resetPassword(email, function(error) {
+
+			if (error == 'noerror') {
+				$scope.alertMessage = {
+					message: "Your password has been successfully reset. A new password has been sent to your email address.",
+					type: 'success'
+				};
+			} else {
+				$scope.alertMessage = {
+					message: error.message,
+					type: 'warning'
+				};
+			}
+
+		});
+
 		$scope.email = '';
+		
 	};
 
 

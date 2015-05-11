@@ -11,34 +11,27 @@
 
 	display: none;
 
-	.sign-in,
-	.register {
-		display: inline-block;
-		width: 48%;
-		margin: 0 auto;
-		padding: 20px;
-		color: $light-grey;
-		vertical-align: top;
-	}
 
-	button#sign-in {
-		background-color: #F3B215;
+	button.sign-in-btn {
 		max-width: 100px;
 		float: right;
-		border: 0;
-		color: $black-grey;
-	}
-
-	button#register {
-		background-color: #1FC370;
-		border: 0;
-		color: $black-grey;
 	}
 
 	.password-help {
 		line-height: 40px;
 	}
 }
+
+.sign-in,
+.register {
+	display: inline-block;
+	width: 48%;
+	margin: 0 auto;
+	padding: 20px;
+	color: $light-grey;
+	vertical-align: top;
+}
+
 
 
 

@@ -29,6 +29,10 @@ app.config(function($routeProvider) {
 			controller: 'AccountCtrl',
 			templateUrl: 'views/account-register.html'
 		})
+		.when('/login', {
+			controller: 'AccountCtrl',
+			templateUrl: 'views/account-login.html'
+		})
 		.when('/reset-password', {
 			controller: 'AccountCtrl',
 			templateUrl: 'views/reset-password.html'

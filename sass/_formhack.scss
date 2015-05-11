@@ -34,8 +34,8 @@ $fh-button-width: 100%;
 $fh-button-max-width: 100%;
 $fh-button-font-color: $white-grey;
 $fh-button-bg-color: $black-grey;
-$fh-button-hover-bg-color: $fh-button-bg-color;
-$fh-button-hover-font-color: $fh-button-font-color;
+// $fh-button-hover-bg-color: $fh-button-bg-color;
+// $fh-button-hover-font-color: $fh-button-font-color;
 
 // Layout
 $fh-centered: false;
@@ -272,8 +272,7 @@ button[disabled] {
 input:focus,
 textarea:focus,
 select:focus,
-option:focus,
-button:focus  {
+option:focus {
 	background-color: $fh-focus-bg-color;
 	border-color: $fh-focus-border-color;
 }
@@ -283,17 +282,17 @@ input[type="radio"]:focus {
 	outline: $fh-focus-border-color solid 2px;
 }
 
-button:hover,
-input[type="button"]:hover,
-input[type="submit"]:hover,
-input[type="reset"]:hover,
-button:focus,
-input[type="button"]:focus,
-input[type="submit"]:focus,
-input[type="reset"]:focus {
-	background-color: $fh-button-hover-bg-color;
-	color: $fh-button-hover-font-color;
-}
+// button:hover,
+// input[type="button"]:hover,
+// input[type="submit"]:hover,
+// input[type="reset"]:hover,
+// button:focus,
+// input[type="button"]:focus,
+// input[type="submit"]:focus,
+// input[type="reset"]:focus {
+// 	background-color: $fh-button-hover-bg-color;
+// 	color: $fh-button-hover-font-color;
+// }
 
 
 

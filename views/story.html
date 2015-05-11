@@ -23,14 +23,28 @@
 
 
 
-<form ng-submit="addComment(comment)" novalidate>
+<form ng-submit="addComment(comment)" novalidate ng-if="currentUser">
 	<textarea ng-model="comment.text" cols="30" rows="5" placeholder="Enter your comment. Be nice, or else."></textarea>
-
-	<button type="submit" ng-if="currentUser">Comment</button>
-	<div ng-if="!currentUser" class="alert-message warning">
-		<span class="message">You must be logged in to leave a comment</span>
-	</div>
+	<button type="submit">Comment</button>
 </form>
+
+<div class="login-prompt" ng-if="!currentUser">
+	<div class="sign-in">
+		<h2>Login</h2>
+
+		<p>You'll need to login before you can leave a comment. Remember: Be nice, or else.</p>
+
+		<button class="sign-in-btn"><a ng-href="#/login">Sign in</a></button>
+		
+	</div>
+
+	<div class="register">
+		<h2>Register</h2>
+		
+		<p>New accounts will be able to leave comments immediately.</p>
+		<button class="register-btn"><a ng-href="#/register">Register now</a></button>
+	</div>
+</div>
 
 
 

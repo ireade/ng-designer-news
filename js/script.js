@@ -22,8 +22,4 @@ $(document).ready(function() {
 
 
 
-	if ( $('#new-story-url').hasClass('ng-dirty') ) {
-		alert("hello");
-	}
-
 });

@@ -12,7 +12,6 @@ app.controller('ProfileCtrl', function(FIREBASE_URL, $scope, $routeParams, $fire
 		});
 	};	
 
-
 	$scope.deleteUser = function(user) {
 		Authentication.deleteUser(user);
 		user.$remove();

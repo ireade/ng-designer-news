@@ -113,6 +113,10 @@ span.upvote {
 	}
 }
 
+.login-prompt {
+	@extend fieldset;
+}
+
 
 /* Profile */
 

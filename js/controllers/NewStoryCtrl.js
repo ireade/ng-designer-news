@@ -23,6 +23,10 @@ app.controller('NewStoryCtrl', function(FIREBASE_URL, $scope, $rootScope, $locat
  
 	$scope.addStory = function(story) {
 
+		// switch(story) {
+		// 	case: 
+		// }
+
 		if ( !(story.url) && !(story.description) ) {
 			$scope.alertMessage = {
 				message: 'You can submit either a url or a description',
