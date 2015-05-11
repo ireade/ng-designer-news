@@ -1,0 +1,16 @@
+<div class="account-profile">
+	
+<h1><a ng-href="">{{user.first_name}} {{user.last_name}}</a>'s stories</h1>
+
+
+<section>
+	<ul>
+		<li ng-repeat="post in recentPosts | orderBy: '-date' ">
+			<h2><a ng-href="#/stories/{{post.id}}">{{post.title}}</a></h2>
+			<p>{{post.date | date}}</p>
+		</li>
+	</ul>
+</section>
+
+
+</div>

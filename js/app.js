@@ -21,10 +21,6 @@ app.config(function($routeProvider) {
 			controller: 'StoriesCtrl',
 			templateUrl: 'views/stories-discussions.html'
 		})
-		.when('/profile', {
-			controller: 'AccountCtrl',
-			templateUrl: 'views/account-profile.html'
-		})
 		.when('/register', {
 			controller: 'AccountCtrl',
 			templateUrl: 'views/account-register.html'
@@ -48,6 +44,14 @@ app.config(function($routeProvider) {
 		.when('/u/:userId', {
 			controller: 'ProfileCtrl',
 			templateUrl: 'views/account-profile.html'
+		})
+		.when('/u/:userId/stories', {
+			controller: 'ProfileCtrl',
+			templateUrl: 'views/account-profile-stories.html'
+		})
+		.when('/u/:userId/comments', {
+			controller: 'ProfileCtrl',
+			templateUrl: 'views/account-profile-comments.html'
 		})
 		.otherwise({
 			redirectTo: '/'

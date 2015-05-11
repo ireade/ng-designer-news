@@ -1,0 +1,16 @@
+<div class="account-profile">
+	
+<h1><a ng-href="">{{user.first_name}} {{user.last_name}}</a>'s comments</h1>
+
+
+<section>
+	<ul>
+		<li ng-repeat="comment in recentComments | orderBy: '-date' ">
+			<blockquote>{{comment.comment}}</blockquote>
+			Posted to <a ng-href="#/stories/{{comment.id}}">{{comment.title}}</a>
+		</li>
+	</ul>
+</section>
+
+
+</div>
