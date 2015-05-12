@@ -19,7 +19,6 @@ app.factory('Authentication', function(FIREBASE_URL, $firebaseAuth, $firebaseArr
 		        	if (user.uid == $rootScope.currentUserUid) {
 
 		        		$rootScope.currentUser = user;
-
 		        		console.log(user);
 		        	}
 		        })
@@ -27,9 +26,7 @@ app.factory('Authentication', function(FIREBASE_URL, $firebaseAuth, $firebaseArr
 
 
 		} else {
-
 			console.log('auth - no logged in user');
-
 		}
 	})
 
@@ -45,7 +42,6 @@ app.factory('Authentication', function(FIREBASE_URL, $firebaseAuth, $firebaseArr
 			  if (error) {
 			    console.log("Error creating user:", error);
 			  } else {
-			    console.log("Successfully created user account with uid:", userData.uid);
 			    callback(userData.uid);
 			  }
 			});

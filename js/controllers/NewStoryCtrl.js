@@ -12,7 +12,6 @@ app.controller('NewStoryCtrl', ['FIREBASE_URL', '$scope', '$rootScope', '$locati
 	}
 
 
-
 	var userRef;
 	var thisUser;
 

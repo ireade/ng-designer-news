@@ -1,5 +1,5 @@
 app.controller('AccountCtrl', function(FIREBASE_URL, $scope, $rootScope, Authentication, $firebaseArray, $firebaseObject, $location) {
-
+ 
 	var ref = new Firebase(FIREBASE_URL + '/users');
 	var users = $firebaseArray(ref);
 
@@ -29,7 +29,7 @@ app.controller('AccountCtrl', function(FIREBASE_URL, $scope, $rootScope, Authent
 				$scope.user.title = '';
 				$scope.user.email = '';
 
-				$location.path('/');
+				$location.path('/login');
 
 			});
 
@@ -49,7 +49,7 @@ app.controller('AccountCtrl', function(FIREBASE_URL, $scope, $rootScope, Authent
 	$scope.logoutUser = function() {
 		Authentication.logoutUser();
 		$location.path('/');
-		Authentication.checkAuth(function() {})
+		window.location.reload();
 		return false;
 	};
 

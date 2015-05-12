@@ -74,7 +74,8 @@ nav.header-nav {
 		float: right;
 		overflow: visible;
 
-		li:hover {
+		li:hover,
+		li.js-active {
 			background-color: $orange;
 		}
 

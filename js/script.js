@@ -13,10 +13,12 @@ $(document).ready(function() {
 
 	$('#account-name, .account-info').on('mouseover', function() {
 		$('.account-info').show();
+		$('#account-name').addClass('js-active');
 	})
 
 	$('#account-name, .account-info').on('mouseleave', function() {
 		$('.account-info').hide();
+		$('#account-name').removeClass('js-active');
 	})
 
 
