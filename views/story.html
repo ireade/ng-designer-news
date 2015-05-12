@@ -31,28 +31,22 @@
 <div class="login-prompt" ng-if="!currentUser">
 	<div class="sign-in">
 		<h2>Login</h2>
-
 		<p>You'll need to login before you can leave a comment. Remember: Be nice, or else.</p>
-
 		<button class="sign-in-btn"><a ng-href="#/login">Sign in</a></button>
-		
 	</div>
 
 	<div class="register">
 		<h2>Register</h2>
-		
 		<p>New accounts will be able to leave comments immediately.</p>
 		<button class="register-btn"><a ng-href="#/register">Register now</a></button>
 	</div>
 </div>
 
-
-
 <h2>{{comments.length}} comments</h2>
 
 <ul class="comments">
 
-	<li class="single-comment" ng-repeat="comment in comments">
+	<li class="single-comment" ng-repeat="comment in comments | orderBy: '-voteCount' ">
 		<h3><a ng-href="#/u/{{comment.user.id}}">{{comment.user.first_name}} {{comment.user.last_name}}</a>, {{comment.user.title}}</h3>
 
 		<p>{{comment.text}}</p>

@@ -75,7 +75,7 @@ app.controller('StoryCtrl', function(FIREBASE_URL, $scope, $rootScope, $location
 	$scope.addComment = function(comment) {
 
 		comments.$add({
-			text: $scope.comment.text,
+			text: comment.text,
 			date: Firebase.ServerValue.TIMESTAMP,
 			user: {
 				first_name: $rootScope.currentUser.first_name,
@@ -91,7 +91,7 @@ app.controller('StoryCtrl', function(FIREBASE_URL, $scope, $rootScope, $location
 				title: story.title,
 				date: Firebase.ServerValue.TIMESTAMP,
 				id: ref.key(),
-				comment: $scope.comment.text
+				comment: comment.text
 
 			}).then(function() {
 
@@ -140,7 +140,7 @@ app.controller('StoryCtrl', function(FIREBASE_URL, $scope, $rootScope, $location
 
 				commentVoters.$add($rootScope.currentUser.uid);
 
-				// Comment User Karma
+				// Comment Author Karma
 				var commentAuthorRef = new Firebase(FIREBASE_URL + '/users/' + comment.user.id);
 				var commentAuthor = $firebaseObject(commentAuthorRef);
 
