@@ -3,8 +3,6 @@ app.controller('AccountCtrl', function(FIREBASE_URL, $scope, $rootScope, Authent
 	var ref = new Firebase(FIREBASE_URL + '/users');
 	var users = $firebaseArray(ref);
 
-	Authentication.checkAuth(function() {})
-
 
 	// Alert Message
 	$scope.alertMessage = false;

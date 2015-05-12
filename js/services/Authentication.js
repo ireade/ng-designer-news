@@ -8,6 +8,32 @@ app.factory('Authentication', function(FIREBASE_URL, $firebaseAuth, $firebaseArr
 	var users = $firebaseArray(userRef);
 
 
+	auth.$onAuth(function(authUser) {
+
+		if (authUser) {
+
+			$rootScope.currentUserUid = authUser.uid;
+
+			users.$loaded().then(function(){
+		        angular.forEach(users, function(user) {
+		        	if (user.uid == $rootScope.currentUserUid) {
+
+		        		$rootScope.currentUser = user;
+
+		        		console.log(user);
+		        	}
+		        })
+		    });
+
+
+		} else {
+
+			console.log('auth - no logged in user');
+
+		}
+	})
+
+
 
 	return {
 		registerUser: function(user, callback) {
@@ -79,16 +105,13 @@ app.factory('Authentication', function(FIREBASE_URL, $firebaseAuth, $firebaseArr
 					users.$loaded().then(function(){
 				        angular.forEach(users, function(user) {
 				        	if (user.uid == $rootScope.currentUserUid) {
-
 				        		$rootScope.currentUser = user;
 				        		callback();
 				        	}
 				        })
 				    });
 	
-
 				} else {
-					console.log('auth - no logged in user');
 
 					//callback('nouser')
 				}
