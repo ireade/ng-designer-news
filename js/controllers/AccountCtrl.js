@@ -1,4 +1,4 @@
-app.controller('AccountCtrl', function(FIREBASE_URL, $scope, $rootScope, Authentication, $firebaseArray, $firebaseObject, $location) {
+app.controller('AccountCtrl', function(FIREBASE_URL, $scope, Authentication, $firebaseArray, $location) {
  
 	var ref = new Firebase(FIREBASE_URL + '/users');
 	var users = $firebaseArray(ref);

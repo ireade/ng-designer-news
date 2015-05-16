@@ -1,4 +1,4 @@
-app.controller('StoriesCtrl', function(FIREBASE_URL, $scope, $rootScope, $location, $firebaseArray, $firebaseObject, Authentication) {
+app.controller('StoriesCtrl', function(FIREBASE_URL, $scope, $rootScope, $firebaseArray, $firebaseObject, Authentication) {
 
 
 	var ref = new Firebase(FIREBASE_URL + '/stories');

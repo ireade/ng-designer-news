@@ -1,4 +1,4 @@
-app.controller('StoryCtrl', function(FIREBASE_URL, $scope, $rootScope, $location, $firebaseArray, $firebaseObject, $routeParams, Authentication) {
+app.controller('StoryCtrl', function(FIREBASE_URL, $scope, $rootScope, $firebaseArray, $firebaseObject, $routeParams, Authentication) {
 
 	var storyId = $routeParams.storyId;
 

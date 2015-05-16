@@ -21,7 +21,4 @@ $(document).ready(function() {
 		$('#account-name').removeClass('js-active');
 	})
 
-
-
-
 });
