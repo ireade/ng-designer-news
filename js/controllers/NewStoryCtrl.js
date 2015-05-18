@@ -65,9 +65,9 @@ app.controller('NewStoryCtrl', function(FIREBASE_URL, $scope, $rootScope, $locat
 						date: Firebase.ServerValue.TIMESTAMP,
 						id: ref.key()
 					}).then(function() {
-						$scope.story.title = '';
-						$scope.story.description = '';
-						$scope.story.url = '';
+						story.title = '';
+						story.description = '';
+						story.url = '';
 						$location.path('/');
 					})
 
@@ -100,9 +100,9 @@ app.controller('NewStoryCtrl', function(FIREBASE_URL, $scope, $rootScope, $locat
 					date: Firebase.ServerValue.TIMESTAMP,
 					id: ref.key()
 				}).then(function() {
-					$scope.story.title = '';
-					$scope.story.description = '';
-					$scope.story.url = '';
+					story.title = '';
+					story.description = '';
+					story.url = '';
 					$location.path('/');
 				})
 
