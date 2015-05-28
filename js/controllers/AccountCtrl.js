@@ -13,27 +13,9 @@ app.controller('AccountCtrl', function(FIREBASE_URL, $scope, Authentication, $fi
 
 	$scope.registerUser = function(user) {
 
-		Authentication.registerUser(user, function(uid) {
+		Authentication.registerUser(user); 
 
-			users.$add({
-				uid: uid,
-				first_name: user.first_name,
-				last_name: user.last_name,
-				title: user.title,
-				email: user.email,
-				karma: 0
-			}).then(function() {
-
-				$scope.user.first_name = '';
-				$scope.user.last_name = '';
-				$scope.user.title = '';
-				$scope.user.email = '';
-
-				$location.path('/login');
-
-			});
-
-		});
+		$location.path('/');
 
 	};
 

@@ -33,7 +33,7 @@ app.factory('Authentication', function(FIREBASE_URL, $firebaseAuth, $firebaseArr
 
 
 	return {
-		registerUser: function(user, callback) {
+		registerUser: function(user) {
 
 			ref.createUser({
 			  email    : user.email,
@@ -41,8 +41,22 @@ app.factory('Authentication', function(FIREBASE_URL, $firebaseAuth, $firebaseArr
 			}, function(error, userData) {
 			  if (error) {
 			    console.log("Error creating user:", error);
+
 			  } else {
-			    callback(userData.uid);
+
+			  	var user_uid = userData.uid;
+			    
+
+			    userRef.child(user_uid).set({
+		    		uid: user_uid,
+		    		first_name: user.first_name,
+					last_name: user.last_name,
+					title: user.title,
+					email: user.email,
+					karma: 0
+			    });
+
+
 			  }
 			});
 
