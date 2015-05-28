@@ -12,11 +12,9 @@ app.controller('AccountCtrl', function(FIREBASE_URL, $scope, Authentication, $fi
 
 
 	$scope.registerUser = function(user) {
-
 		Authentication.registerUser(user); 
-
+		
 		$location.path('/');
-
 	};
 
 	$scope.signInUser = function(user) {

@@ -16,6 +16,7 @@ app.factory('Authentication', function(FIREBASE_URL, $firebaseAuth, $firebaseArr
 
 			users.$loaded().then(function(){
 		        angular.forEach(users, function(user) {
+
 		        	if (user.uid == $rootScope.currentUserUid) {
 
 		        		$rootScope.currentUser = user;
@@ -46,7 +47,6 @@ app.factory('Authentication', function(FIREBASE_URL, $firebaseAuth, $firebaseArr
 
 			  	var user_uid = userData.uid;
 			    
-
 			    userRef.child(user_uid).set({
 		    		uid: user_uid,
 		    		first_name: user.first_name,
