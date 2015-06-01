@@ -1,0 +1,55 @@
+{
+    "rules": {
+      
+        ".read": true,
+        
+        "stories": {
+          
+          ".write": "auth !== null",
+          
+          "$story_id": {
+            
+            ".validate": "newData.hasChild('title') && ( newData.hasChild('url') || newData.hasChild('description') )",
+            
+            "title": {
+              ".validate": "newData.isString()"
+            },
+            
+            "url": {
+              ".validate": "newData.isString()"
+            },
+            
+            "description": {
+              ".validate": "newData.isString()"
+            },
+            
+            "category": {
+              ".validate": "newData.isString()"
+            },
+            
+            "commentCount": {
+              ".write": "newData.val() === data.val() + 1"
+            },
+            
+            "date": {
+              ".validate": "newData.val() <= now"
+            },
+            
+            
+            "voteCount": {
+              
+              ".write": "(newData.val() === data.val() + 1) && (auth.uid === root.child('stories/'+$story_id+'/user').child('id').val())"
+              
+            }
+            
+            
+          }
+        },
+        
+        "users": {
+          
+          ".write": true
+          
+        }
+    }
+}

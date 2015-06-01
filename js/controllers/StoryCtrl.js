@@ -26,7 +26,7 @@ app.controller('StoryCtrl', function(FIREBASE_URL, $scope, $rootScope, $firebase
 
 	// Voting
 
-	if ($rootScope.currentUser) {
+	//if ($rootScope.currentUser) {
 
 		var votersRef = new Firebase(FIREBASE_URL + '/stories/' + storyId + '/voters');
 		var voters = $firebaseArray(votersRef);
@@ -35,19 +35,19 @@ app.controller('StoryCtrl', function(FIREBASE_URL, $scope, $rootScope, $firebase
 
 		voters.$loaded().then(function() {
 			angular.forEach(voters, function(object, id) {
-				if (object.$value == $rootScope.currentUser.uid) {
+				if (object.$value == $rootScope.currentUser.$id) {
 					$scope.hasVoted = true;
 				}
 			})
 		}) 
-	}
+	//}
 
 	$scope.upvote = function() {
 
 		story.voteCount++;
 		story.$save();
 
-		voters.$add($rootScope.currentUser.uid);
+		voters.$add($rootScope.currentUser.$id);
 
 		$scope.hasVoted = true;
 
@@ -81,7 +81,6 @@ app.controller('StoryCtrl', function(FIREBASE_URL, $scope, $rootScope, $firebase
 				first_name: $rootScope.currentUser.first_name,
 				last_name: $rootScope.currentUser.last_name,
 				title: $rootScope.currentUser.title,
-				uid: $rootScope.currentUser.uid,
 				id: $rootScope.currentUser.$id
 			},
 			voteCount: 0
@@ -119,7 +118,7 @@ app.controller('StoryCtrl', function(FIREBASE_URL, $scope, $rootScope, $firebase
 
 		commentVoters.$loaded().then(function() {
 			angular.forEach(commentVoters, function(object, id) {
-				if (object.$value == $rootScope.currentUser.uid) {
+				if (object.$value == $rootScope.currentUser.$id) {
 					hasVotedComment = true;
 				}
 			})

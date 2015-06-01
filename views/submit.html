@@ -10,12 +10,12 @@
 
 <form ng-submit="addStory(story)" ng-if="currentUser" novalidate>
 
-	<input type="text" placeholder="Post title" ng-model="story.title" required>
+	<input type="text" placeholder="Story title" ng-model="story.title" required>
 	<input type="url" placeholder="http://www.bitsofco.de" ng-model="story.url">
 
 	<p class="url-or-comment">Include a url <em>or</em> a comment</p>
 
-	<textarea name="" id="" cols="30" rows="5" placeholder="Enter your comment. Be nice, or else" ng-model="story.description"></textarea>
+	<textarea name="" id="" cols="30" rows="5" placeholder="Story description" ng-model="story.description"></textarea>
 
 	<button type="submit">Post</button>
 </form>

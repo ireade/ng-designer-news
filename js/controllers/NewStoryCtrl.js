@@ -22,7 +22,7 @@ app.controller('NewStoryCtrl', function(FIREBASE_URL, $scope, $rootScope, $locat
 	
  
 	$scope.addStory = function(story) {
-
+		
 		if ( !story.title ) {
 			$scope.alertMessage = {
 				message: 'A title is required',
