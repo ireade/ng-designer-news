@@ -53,7 +53,6 @@ app.controller('NewStoryCtrl', function(FIREBASE_URL, $scope, $rootScope, $locat
 						first_name: $rootScope.currentUser.first_name,
 						last_name: $rootScope.currentUser.last_name,
 						title: $rootScope.currentUser.title,
-						uid: $rootScope.currentUser.uid,
 						id: $rootScope.currentUser.$id
 					},
 					commentCount: 0,
@@ -88,7 +87,6 @@ app.controller('NewStoryCtrl', function(FIREBASE_URL, $scope, $rootScope, $locat
 					first_name: $rootScope.currentUser.first_name,
 					last_name: $rootScope.currentUser.last_name,
 					title: $rootScope.currentUser.title,
-					uid: $rootScope.currentUser.uid,
 					id: $rootScope.currentUser.$id
 				},
 				commentCount: 0,

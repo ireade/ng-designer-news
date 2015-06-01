@@ -14,7 +14,7 @@
 
 
 <div class="story-meta">
-	<span class="upvote" ng-if="currentUser && (currentUser.uid != story.user.uid) && !hasVoted"><a ng-click="upvote(story.$id)">Upvote</a> &#8226;</span> 
+	<span class="upvote" ng-if="currentUser && (currentUser.$id != story.user.$id) && !hasVoted"><a ng-click="upvote(story.$id)">Upvote</a> &#8226;</span> 
 	<span class="points">{{story.voteCount}} points and {{story.commentCount}} comments</span> &#8226;
 	<span class="author">{{story.date | fromNow}} from <a ng-href="#/u/{{story.user.id}}">{{story.user.first_name}} {{story.user.last_name}}</a>, {{story.user.title}}</span>
 </div>
@@ -52,7 +52,7 @@
 		<p>{{comment.text}}</p>
 
 		<div class="story-meta">
-			<span class="comment-upvote" ng-if="currentUser && (currentUser.uid != comment.user.uid)"><a class="upvote-link" ng-click="upvoteComment(comment)">Upvote</a> &#8226;</span> 
+			<span class="comment-upvote" ng-if="currentUser && (currentUser.$id != comment.user.$id)"><a class="upvote-link" ng-click="upvoteComment(comment)">Upvote</a> &#8226;</span> 
 			<span class="comment-upvote">{{comment.voteCount}} points</span> &#8226;
 			<span class="comment-date">{{comment.date | fromNow}}</span>
 		</div>
