@@ -38,7 +38,7 @@
             
             "voteCount": {
               
-              ".write": "(newData.val() === data.val() + 1) && (auth.uid === root.child('stories/'+$story_id+'/user').child('id').val())"
+               ".write": "( (newData.val() === data.val() + 1) && (auth.uid !== root.child('stories/'+$story_id+'/user/id').val()) )"
               
             }
             

@@ -5,6 +5,7 @@ app.controller('StoryCtrl', function(FIREBASE_URL, $scope, $rootScope, $firebase
 	var ref = new Firebase(FIREBASE_URL + '/stories/' + storyId);
 	var story = $firebaseObject(ref);
 
+
 	$scope.story = story;
 
 	// Alert Message
@@ -44,22 +45,28 @@ app.controller('StoryCtrl', function(FIREBASE_URL, $scope, $rootScope, $firebase
 
 	$scope.upvote = function() {
 
-		story.voteCount++;
-		story.$save();
 
-		voters.$add($rootScope.currentUser.$id);
+		//if (!$scope.hasVoted) {
 
-		$scope.hasVoted = true;
+			var votes = $firebaseObject( new Firebase(FIREBASE_URL + '/stories/' + storyId + '/voteCount') );
+
+			votes.$loaded().then(function() {
+				votes.$value++;
+				votes.$save();
+
+				$scope.hasVoted = true;
+			})
 
 
-		// Story User Karma
-		var storyAuthorRef = new Firebase(FIREBASE_URL + '/users/' + story.user.id);
-		var storyAuthor = $firebaseObject(storyAuthorRef);
+			var storyAuthorKarma = $firebaseObject( new Firebase(FIREBASE_URL + '/users/' + story.user.id + '/karma') );
 
-		storyAuthor.$loaded().then(function() {
-			storyAuthor.karma++;
-			storyAuthor.$save();
-		})
+			storyAuthorKarma.$loaded().then(function() {
+				storyAuthorKarma.$value++;
+				storyAuthorKarma.$save();
+			})
+
+
+		//}
 
 	};
 
