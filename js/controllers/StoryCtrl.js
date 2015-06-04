@@ -46,7 +46,7 @@ app.controller('StoryCtrl', function(FIREBASE_URL, $scope, $rootScope, $firebase
 	$scope.upvote = function() {
 
 
-		if (!$scope.hasVoted) {
+		//if (!$scope.hasVoted) {
 
 			var votes = $firebaseObject( new Firebase(FIREBASE_URL + '/stories/' + storyId + '/voteCount') );
 
@@ -67,7 +67,7 @@ app.controller('StoryCtrl', function(FIREBASE_URL, $scope, $rootScope, $firebase
 			})
 
 
-		}
+		//}
 
 	};
 

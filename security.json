@@ -3,53 +3,79 @@
       
         ".read": true,
         
-        "stories": {
-          
-          ".write": "auth !== null",
-          
+        "stories": {      
           "$story_id": {
             
-            ".validate": "newData.hasChild('title') && ( newData.hasChild('url') || newData.hasChild('description') )",
             
             "title": {
+              ".write": "!data.exists()
+                         && auth !== null",
               ".validate": "newData.isString()"
             },
-            
-            "url": {
-              ".validate": "newData.isString()"
-            },
-            
-            "description": {
-              ".validate": "newData.isString()"
-            },
-            
-            "category": {
-              ".validate": "newData.isString()"
-            },
-            
-            "commentCount": {
-              ".write": "newData.val() === data.val() + 1"
-            },
-            
             "date": {
+              ".write": "!data.exists()
+                         && auth !== null",
               ".validate": "newData.val() <= now"
+            },
+            "url": {
+              ".write": "!data.exists()
+                         && auth !== null"
+            },
+            "description": {
+              ".write": "!data.exists()
+                         && auth !== null",
+              ".validate": "newData.isString()"
+            },
+            
+            
+            "user": {
+              ".write": "!data.exists()
+                         && auth !== null
+                         && newData.hasChildren(['first_name', 'last_name', 'id', 'title'])"
             },
             
             
             "voteCount": {
-              
-               ".write": "( (newData.val() === data.val() + 1) && (auth.uid !== root.child('stories/'+$story_id+'/user/id').val()) )"
-              
-            }
+              ".write": "auth !== null
+                         && newData.val() === data.val() + 1
+                         && auth.uid !== root.child('stories').child($story_id).child('user').child('id').val()"
+            },
+            "voters": {
+              ".write": "auth !== null"
+            },
             
+            "commentCount": {
+              ".write": "auth !== null
+                         && newData.val() === data.val() + 1"
+            },
+            
+            "comments": {
+              "$comment_id": {
+                ".write": true
+              }
+            }
             
           }
         },
         
         "users": {
-          
-          ".write": true
-          
+          "$user_id": {
+            
+            
+            "karma": {
+              ".write": "auth !== null
+                         && newData.val() === data.val() + 1
+                         && auth.uid !== $user_id"
+              
+            },
+            
+            "posts": {
+              ".write": true
+            },
+            "comments": {
+              ".write": true
+            }
+          }
         }
     }
 }

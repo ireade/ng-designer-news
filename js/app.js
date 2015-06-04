@@ -1,6 +1,6 @@
 var app = angular.module('ng-designer-news', ['ngRoute', 'firebase']);
 
-app.constant('FIREBASE_URL', 'https://ng-designer-news.firebaseio.com/');
+app.constant('FIREBASE_URL', 'https://ng-designer-news2.firebaseio.com/');
 
 app.config(function($routeProvider) {
 
