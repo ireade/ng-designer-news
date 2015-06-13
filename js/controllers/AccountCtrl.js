@@ -1,4 +1,4 @@
-app.controller('AccountCtrl', function(FIREBASE_URL, $scope, Authentication, $firebaseArray, $location) {
+app.controller('AccountCtrl', function(FIREBASE_URL, $scope, $rootScope, Authentication, $firebaseArray, $firebaseObject, $location) {
  
 	var ref = new Firebase(FIREBASE_URL + '/users');
 	var users = $firebaseArray(ref);
@@ -9,6 +9,16 @@ app.controller('AccountCtrl', function(FIREBASE_URL, $scope, Authentication, $fi
 	$scope.cancelAlert = function() {
 		$scope.alertMessage = false;
 	}
+
+
+	// currentUserKarma
+	$scope.currentUserKarma;
+	Authentication.checkAuth(function() {
+		if ($rootScope.currentUser) {
+			$scope.currentUserKarma = $firebaseObject( new Firebase(FIREBASE_URL + '/karma/' + $rootScope.currentUser.$id) );
+		}
+	})
+
 
 
 	$scope.registerUser = function(user) {
@@ -53,7 +63,6 @@ app.controller('AccountCtrl', function(FIREBASE_URL, $scope, Authentication, $fi
 		$scope.email = '';
 		
 	};
-
 
 
 

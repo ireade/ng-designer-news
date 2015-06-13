@@ -1,80 +1,121 @@
 {
     "rules": {
       
-        ".read": true,
+      // Anyone can read any data
+       ".read": true,
         
-        "stories": {      
+        "stories": {
+
+          // Each story
           "$story_id": {
             
-            
+            // Only logged in users can create a story
+            ".write": "auth !== null",
+                                   
             "title": {
-              ".write": "!data.exists()
-                         && auth !== null",
-              ".validate": "newData.isString()"
+              // Validate only if the data doesn't already exist (so data cannot be edited) and if the new data is a string
+              ".validate": "!data.exists() && newData.isString()"
             },
-            "date": {
-              ".write": "!data.exists()
-                         && auth !== null",
-              ".validate": "newData.val() <= now"
+            "date": { 
+              // Validate only if the data doesn't already exist, and the data must be equal to the current datetime
+              ".validate": "!data.exists() && newData.val() <= now"
             },
             "url": {
-              ".write": "!data.exists()
-                         && auth !== null"
+              ".validate": "!data.exists() && newData.isString()"
             },
             "description": {
-              ".write": "!data.exists()
-                         && auth !== null",
-              ".validate": "newData.isString()"
+              ".validate": "!data.exists() && newData.isString()"
             },
             
-            
             "user": {
-              ".write": "!data.exists()
-                         && auth !== null
-                         && newData.hasChildren(['first_name', 'last_name', 'id', 'title'])"
+              // Validate only if the data doesn't already exist, and the data must have the specified children
+              ".validate": "!data.exists() && newData.hasChildren(['first_name', 'last_name', 'title', 'id'])"
             },
             
             
             "voteCount": {
-              ".write": "auth !== null
-                         && newData.val() === data.val() + 1
-                         && auth.uid !== root.child('stories').child($story_id).child('user').child('id').val()"
+              // Data can only be validated to this node if -
+                // The data is new and the value is equal to 0 OR
+                // The data already exists, the new value is equal to the old value plus 1, and the user making this addition is not the author of the story
+              ".validate": "( !data.exists() && newData.val() === 0 )
+                            || ( data.exists() && newData.val() === data.val() + 1 && auth.uid !== root.child('stories').child($story_id).child('user').child('id').val() )"
             },
             "voters": {
-              ".write": "auth !== null"
+              ".validate": true
             },
             
             "commentCount": {
-              ".write": "auth !== null
-                         && newData.val() === data.val() + 1"
+              ".validate": true
             },
             
             "comments": {
               "$comment_id": {
-                ".write": true
+                
+                "voteCount": {
+                  // Data can only be validated to this node if -
+                    // The data is new and the value is equal to 0 OR
+                    // If data already exists, the new value is equal to the old value plus 1, and the user making this addition is not the author of the comment
+                  ".validate": "( !data.exists() && newData.val() === 0 )
+                              || ( data.exists() && newData.val() === data.val() + 1 && auth.uid !== root.child('stories').child($story_id).child('comments').child($comment_id).child('user').child('id').val() )"
+                }
+                
               }
             }
             
           }
         },
         
+        
         "users": {
+
+          // Each user
           "$user_id": {
             
-            
-            "karma": {
-              ".write": "auth !== null
-                         && newData.val() === data.val() + 1
-                         && auth.uid !== $user_id"
-              
+            // Data can only be written if -
+              // The user doesn't already exist OR
+              // The user does exist and is the same as the current authenticated user
+            ".write": "!data.exists() || ( data.exists() && auth.uid === $user_id )",
+
+            "uid": {
+              // Data can only be validated to this node if -
+                // The data doesn't already exist OR
+                // The new data is equal to the old data, i.e. the data not be changed once set
+              ".validate": "!data.exists() || data.val() === newData.val()"
             },
             
-            "posts": {
-              ".write": true
+            "first_name": {
+              // Data can only be validated to this node if -
+                // The new data is a string OR
+                // No new data is incoming, i.e. the data is being deleted
+              ".validate": "newData.isString() || !newData.exists()"
             },
-            "comments": {
-              ".write": true
+            
+            "last_name": {
+              ".validate": "newData.isString() || !newData.exists()"
+            },
+            
+            "title": {
+              ".validate": "newData.isString() || !newData.exists()"
             }
+            
+          }
+        },
+        
+        "karma": {
+
+          // Each user's karma
+          "$user_id": {
+
+            // Data can only be written if -
+              // The user doesnt already exist OR
+              // No new data is incoming, i.e. the data is being deleted OR
+              // The authentication adding to this user's karma is not the same
+            ".write": "!data.exists() || !newData.exists() || ( auth !== null && auth.uid !== $user_id )",
+
+            // Data can only be validated to this node if The
+              // The data doesn't already exist OR
+              // Data does exist and the new karma is equal to the old value plus 1
+            ".validate": "!data.exists() || ( data.exists() && newData.val() === data.val() + 1 )"
           }
         }
     }

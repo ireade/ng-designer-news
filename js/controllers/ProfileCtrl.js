@@ -14,9 +14,14 @@ app.controller('ProfileCtrl', function(FIREBASE_URL, $scope, $routeParams, $fire
 
 	$scope.deleteUser = function(user) {
 		Authentication.deleteUser(user);
-		user.$remove();
+		Authentication.logoutUser();
 		$location.path('/');
+		window.location.reload();
 	};
+
+	var karmaRef = new Firebase(FIREBASE_URL + '/karma/' + $scope.userId);
+	var karma = $firebaseObject(karmaRef);
+	$scope.karma = karma;
 
 
 	var postsRef = new Firebase(FIREBASE_URL + '/users/' + $scope.userId + '/posts');

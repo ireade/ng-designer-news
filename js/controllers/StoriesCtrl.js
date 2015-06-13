@@ -19,9 +19,7 @@ app.controller('StoriesCtrl', function(FIREBASE_URL, $scope, $rootScope, $fireba
 
 
 		var votes = $firebaseObject( new Firebase(FIREBASE_URL + '/stories/' + story.$id + '/voteCount') );
-
 		var voters = $firebaseArray( new Firebase(FIREBASE_URL + '/stories/' + story.$id + '/voters') );
-
 		var hasVoted = false;
 
 		voters.$loaded().then(function() {
@@ -44,22 +42,21 @@ app.controller('StoriesCtrl', function(FIREBASE_URL, $scope, $rootScope, $fireba
 				votes.$value++;
 				votes.$save();
 
-				voters.$add($rootScope.currentUser.uid);
+				voters.$add($rootScope.currentUser.$id);
 
 
 				// Story Author Karma
-				var storyAuthorKarma = $firebaseObject( new Firebase(FIREBASE_URL + '/users/' + story.user.id + '/karma') );
+				var storyAuthorKarma = $firebaseObject( new Firebase(FIREBASE_URL + '/karma/' + story.user.id) );
 				storyAuthorKarma.$loaded().then(function() {
 					storyAuthorKarma.$value++;
 					storyAuthorKarma.$save();
 				})
+
 			}
 
 
 		}) // end .then from voters.loaded
 	}; // end upvote
-
-
 
 
 

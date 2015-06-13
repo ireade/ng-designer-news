@@ -1,36 +1,20 @@
-app.factory('Authentication', function(FIREBASE_URL, $firebaseAuth, $firebaseArray, $rootScope) {
+app.factory('Authentication', function(FIREBASE_URL, $firebaseAuth, $firebaseArray, $firebaseObject, $rootScope) {
 
 
 	var ref = new Firebase(FIREBASE_URL);
 	var auth = $firebaseAuth(ref);
 
 	var userRef = new Firebase(FIREBASE_URL + '/users');
-	var users = $firebaseArray(userRef);
 
+	var karmaRef = new Firebase(FIREBASE_URL + '/karma');
 
 	auth.$onAuth(function(authUser) {
-
 		if (authUser) {
-
-			$rootScope.currentUserUid = authUser.uid;
-
-			users.$loaded().then(function(){
-		        angular.forEach(users, function(user) {
-
-		        	if (user.uid == $rootScope.currentUserUid) {
-
-		        		$rootScope.currentUser = user;
-		        		console.log(user);
-		        	}
-		        })
-		    });
-
-
+			$rootScope.currentUser = $firebaseObject( new Firebase(FIREBASE_URL + '/users/' + authUser.uid) );
 		} else {
 			console.log('auth - no logged in user');
 		}
 	})
-
 
 
 	return {
@@ -51,10 +35,10 @@ app.factory('Authentication', function(FIREBASE_URL, $firebaseAuth, $firebaseArr
 		    		uid: user_uid,
 		    		first_name: user.first_name,
 					last_name: user.last_name,
-					title: user.title,
-					email: user.email,
-					karma: 0
+					title: user.title
 			    });
+
+			    karmaRef.child(user_uid).set(0);
 
 
 			  }
@@ -63,16 +47,28 @@ app.factory('Authentication', function(FIREBASE_URL, $firebaseAuth, $firebaseArr
 		},
 		deleteUser: function(user) {
 
-			ref.removeUser({
-			  email    : user.email,
-			  password : user.password
-			}, function(error) {
-			  if (error === null) {
-			    console.log("User removed successfully");
-			  } else {
-			    console.log("Error removing user:", error);
-			  }
-			});
+
+			var userKarma = $firebaseObject( new Firebase(FIREBASE_URL + '/users/' + user.uid) );
+		    var userObj =  $firebaseObject( new Firebase(FIREBASE_URL + '/karma/' + user.uid) );
+
+		    userKarma.$remove().then(function() {
+
+			    userObj.$remove().then(function() {
+
+			    	ref.removeUser({
+					  email    : user.email,
+					  password : user.password
+					}, function(error) {
+					  if (error === null) {
+					    console.log("User removed successfully");
+					  } else {
+					    console.log("Error removing user:", error);
+					  }
+					});
+
+			    });
+		    
+		    });
 
 		},
 		signInUser: function(user) {
@@ -110,20 +106,12 @@ app.factory('Authentication', function(FIREBASE_URL, $firebaseAuth, $firebaseArr
 
 				if (authUser) {
 
-					$rootScope.currentUserUid = authUser.uid;
-
-					users.$loaded().then(function(){
-				        angular.forEach(users, function(user) {
-				        	if (user.uid == $rootScope.currentUserUid) {
-				        		$rootScope.currentUser = user;
-				        		callback();
-				        	}
-				        })
-				    });
+					$rootScope.currentUser = $firebaseObject( new Firebase(FIREBASE_URL + '/users/' + authUser.uid) );
+					callback();
 	
 				} else {
 
-					//callback('nouser')
+					callback();
 				}
 			})
 		}

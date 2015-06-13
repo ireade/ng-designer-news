@@ -4,9 +4,13 @@ app.controller('StoryCtrl', function(FIREBASE_URL, $scope, $rootScope, $firebase
 
 	var ref = new Firebase(FIREBASE_URL + '/stories/' + storyId);
 	var story = $firebaseObject(ref);
-
-
 	$scope.story = story;
+
+
+	var votersRef = new Firebase(FIREBASE_URL + '/stories/' + storyId + '/voters');
+	var voters = $firebaseArray(votersRef);
+	$scope.hasVoted = false;
+
 
 	// Alert Message
 	$scope.alertMessage = false;
@@ -18,35 +22,31 @@ app.controller('StoryCtrl', function(FIREBASE_URL, $scope, $rootScope, $firebase
 	var userRef;
 	var thisUser;
 
+	
 	Authentication.checkAuth(function() {
-		userRef = new Firebase(FIREBASE_URL + '/users/' + $rootScope.currentUser.$id + '/comments');
-		thisUser = $firebaseArray(userRef);
+		if ($rootScope.currentUser) {
+
+			// Set current use
+			userRef = new Firebase(FIREBASE_URL + '/users/' + $rootScope.currentUser.$id + '/comments');
+			thisUser = $firebaseArray(userRef);
+
+			// Check if current user has voted
+			voters.$loaded().then(function() {
+				angular.forEach(voters, function(object, id) {
+					if (object.$value == $rootScope.currentUser.$id) {
+						//$scope.hasVoted = true;
+					}
+				})
+			}) 
+
+		}
 	})
 
-
-
-	// Voting
-
-	//if ($rootScope.currentUser) {
-
-		var votersRef = new Firebase(FIREBASE_URL + '/stories/' + storyId + '/voters');
-		var voters = $firebaseArray(votersRef);
-
-		$scope.hasVoted = false;
-
-		voters.$loaded().then(function() {
-			angular.forEach(voters, function(object, id) {
-				if (object.$value == $rootScope.currentUser.$id) {
-					$scope.hasVoted = true;
-				}
-			})
-		}) 
-	//}
-
+	
 	$scope.upvote = function() {
+		
 
-
-		//if (!$scope.hasVoted) {
+		// if (!$scope.hasVoted) {
 
 			var votes = $firebaseObject( new Firebase(FIREBASE_URL + '/stories/' + storyId + '/voteCount') );
 
@@ -56,20 +56,23 @@ app.controller('StoryCtrl', function(FIREBASE_URL, $scope, $rootScope, $firebase
 
 				voters.$add($rootScope.currentUser.$id);
 
-				$scope.hasVoted = true;
+				//$scope.hasVoted = true;
 			})
 
-			// Story Author Karma
-			var storyAuthorKarma = $firebaseObject( new Firebase(FIREBASE_URL + '/users/' + story.user.id + '/karma') );
-			storyAuthorKarma.$loaded().then(function() {
-				storyAuthorKarma.$value++;
-				storyAuthorKarma.$save();
-			})
+		// 	// Story Author Karma
+		// 	var storyAuthorKarma = $firebaseObject( new Firebase(FIREBASE_URL + '/karma/' + story.user.id) );
+		// 	storyAuthorKarma.$loaded().then(function() {
+		// 		storyAuthorKarma.$value++;
+		// 		storyAuthorKarma.$save();
+		// 	})
 
-
-		//}
+		// }
 
 	};
+
+
+
+
 
 
 
@@ -100,14 +103,18 @@ app.controller('StoryCtrl', function(FIREBASE_URL, $scope, $rootScope, $firebase
 				id: ref.key(),
 				comment: comment.text
 
-			}).then(function() {
-
-				comment.text = '';
-				story.commentCount++;
-				story.$save();
-
 			})
 
+			comment.text = '';
+
+			var commentCount = $firebaseObject( new Firebase(FIREBASE_URL + '/stories/' + storyId + '/commentCount') );
+
+			commentCount.$loaded().then(function() {
+				commentCount.$value++;
+				commentCount.$save();
+
+			})
+			
 			
 		});
 	};
@@ -148,13 +155,15 @@ app.controller('StoryCtrl', function(FIREBASE_URL, $scope, $rootScope, $firebase
 				commentVoters.$add($rootScope.currentUser.uid);
 
 				// Comment Author Karma
-				var commentAuthorRef = new Firebase(FIREBASE_URL + '/users/' + comment.user.id);
+				var commentAuthorRef = new Firebase(FIREBASE_URL + '/karma/' + comment.user.id);
 				var commentAuthor = $firebaseObject(commentAuthorRef);
 
 				commentAuthor.$loaded().then(function() {
-					commentAuthor.karma++;
+					commentAuthor.$value++;
 					commentAuthor.$save();
 				})
+
+
 
 			}
 
